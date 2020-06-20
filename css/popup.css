@@ -1,0 +1,112 @@
+.no-radius {
+	border-radius: 0px !important;
+}
+
+/* Card */
+.ad-card {
+	min-width: min-content !important;
+	min-height: fit-content !important;
+	margin: 0.2em !important;
+	width: min-content !important;
+}
+.ad-card .card-ad-creative-id {
+	word-break: break-all;
+}
+.ad-card .row {
+	text-align: center;
+}
+.ad-card .content {
+	padding: 5px !important;
+}
+.ad-card .sub.header {
+	margin-top: 0.5em !important;
+}
+.ad-card .content.image {  
+	width: 220px !important;  /* image container size */
+	text-align: center !important;
+	background-color: #F8F8F8 !important;
+	overflow: auto !important;
+	padding: 0px !important;
+}
+.ad-card .content.image img {
+	max-width: 220px !important;  /* actual image size */
+	max-height: 330px !important; /* actual image size */
+}
+.ad-card .content.image::-webkit-scrollbar {
+  height: 0px; /* height of horizontal scrollbar */
+  width: 0px;  /* width of vertical scrollbar */
+  border: 0px solid;
+}
+.ad-card .content.text {
+	max-height: fit-content !important;
+	word-break: break-all !important;
+}
+.ad-card .content.stats {
+	max-height: fit-content !important;
+}
+.ad-card .content.stats .column {
+	padding: 0px !important;
+}
+.ad-card .content.stats .column.stat-imp {
+	margin-left: 0.3em !important;
+}
+.ad-card .card-ad-bidder-id {
+	color: #1da1f2;
+}
+
+.crt-num-tab {
+	margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+#vast-video-container {
+  position: relative;
+  /* forces the container to match a 16x9 aspect ratio */
+  /* replace with 75% for a 4:3 aspect ratio, if needed */
+  /* padding-bottom: 56.25%; */
+	width: 320px;
+	height: 480px;
+}
+
+#vast-video-element {
+  /* forces the contents to fill the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#vast-ad-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Button Color Override */
+.mopub-button-color {
+	background-color: #1da1f2 !important;
+	color: #FFFFFF !important;	
+	font-weight: bold !important;
+	box-shadow: none !important;
+	border: 1px solid #1da1f2 !important;
+}
+
+.mopub-button-color:hover {
+	background-color: #1a91da !important;
+	border-color: #1a91da !important;
+	color: #fff !important;
+}
+
+/* Button Radius */
+.mopub-button-radius {
+	border-radius: 1.6rem !important;
+}
+

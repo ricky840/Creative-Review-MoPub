@@ -1,0 +1,40 @@
+{
+  "name": "Creative Preview",
+  "version": "0.0.1",
+  "description": "Preview Creatives",
+  "manifest_version": 2,
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "lib/jquery-3.4.1.min.js",
+      "lib/lodash-core.js",
+      "lib/http.js",
+      "js/backgrounds/backgroundStatic.js",
+      "js/backgrounds/notificationManager.js",
+      "js/backgrounds/badgeManager.js",
+      "js/backgrounds/loginHandler.js",
+      "js/backgrounds/logoutHandler.js",
+      "js/backgrounds/sessionHandler.js",
+      "js/backgrounds/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "img/default-logo.png",
+    "default_title": "Creative Preview"
+  },
+	"content_security_policy": "script-src 'self' https://*.googleapis.com/ https://*.google.com/ 'unsafe-eval' https://*.2mdn.net/ 'sha256-yskPWnDOHRDWHXisR6ZuTxbghg2ZQLR9fWqvr3ZhFW0='; object-src 'self'",
+  "icons": {
+		"16": "img/logo-16.png",
+		"48": "img/logo-48.png",
+		"128": "img/logo-128.png"
+  },
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.mopub.com/",
+    "*://*.herokuapp.com/",
+    "*://*.datswatsup.com/",
+		"notifications"
+  ]
+}

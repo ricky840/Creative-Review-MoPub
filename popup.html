@@ -1,0 +1,497 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Creative Preview</title>
+    <link rel="stylesheet" type="text/css" href="css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="css/calendar.min.css">
+		<link rel="stylesheet" type="text/css" href="css/popup.css">
+	</head>
+	<body id="main_body">
+
+		<!-- Menu -->
+		<div class="ui tiny inverted blue menu no-radius">
+			<a class="header item" href="">
+				<h4 style="margin-bottom: 0px;">Creative Review</h4>
+				<div class="mopub-logo-menu"></div>
+			</a>
+		</div>
+
+		<div class="ui container" style="width: 95%;">
+
+			<!-- Notification -->
+			<div class="ui small message notification" style="display: none;">
+				<i class="close icon"></i>
+				<div class="header"></div>
+				<p class="content"></p>
+			</div>
+
+			<!-- Grid -->
+			<div class="ui grid">
+
+				<div class="row">
+					<div class="eight wide column">
+
+						<form class="ui small form ad-form">
+
+							<div class="required field">
+								<label>Fetch Creatives from</label>
+								<div class="ui selection fetch-source-dropdown dropdown">
+									<input type="hidden" name="fetch_source">
+									<i class="dropdown icon"></i>
+									<div class="default text">Select</div>
+									<div class="menu">
+										<div class="item" data-value="file_upload">Upload a File</div>
+										<div class="item" data-value="single_creative">Single Creative</div>
+										<div class="item" data-value="mpx_line_item">Marketplace Line Item</div>
+										<div class="item" data-value="ad_unit">Ad Unit</div>
+										<div class="item" data-value="mpx_tab">Marketplace Tab</div>
+									</div>
+								</div>
+							</div>
+			
+							<div class="required field field-upload-file fetch-source" style="display: none;">
+								<label>Upload a file</label>
+								<input type="file" id="upload-file" accept=".csv">
+							</div>
+							
+							<div class="required field fetch-calendar-field fetch-source" style="display: none;">
+								<label>Choose Date</label>
+								<div class="ui calendar">
+									<div class="ui input left icon">
+									<i class="calendar icon"></i>
+									<input type="text" placeholder="Date">
+									</div>
+								</div>
+							</div>
+
+							<div class="two fields crt-bid-id-field fetch-source" style="display: none;">
+								<div class="required field field-creative-id">
+									<label>Creative Id</label>
+									<input type="text" name="creative_id" placeholder="">
+								</div>
+								<div class="required field field-bidder-id">
+									<label>Bidder Id</label>
+									<input type="text" name="bidder_id" placeholder="">
+								</div>
+							</div>	
+
+							<div class="required field field-mpx-line-item fetch-source" style="display: none;">
+								<label>Marketplace Line Item Id</label>
+								<input type="text" name="mpx_line_item_id" placeholder="">
+							</div>
+
+							<div class="required field field-ad-unit fetch-source" style="display: none;">
+								<label>Ad Unit Id</label>
+								<input type="text" name="adunit_id" placeholder="">
+							</div>
+
+							<div class="field">
+								<label>Creative Format</label>
+									<select multiple="" class="ui dropdown creative-format-dropdown">
+										<option value="">All formats (default)</option>
+										<option value="banner">Banner (320x50)</option>
+										<option value="html">HTML</option>
+										<option value="vast">VAST</option>
+										<option value="native">Native</option>
+									</select>
+							</div>
+							<div class="ui button ad-submit mopub-button-color mopub-button-radius">Load</div>
+						</form>
+
+					</div> <!-- Column Ends -->
+			
+					<div class="eight wide column">
+						<div class="row">
+							<form class="ui equal width small form ad-form-options">
+								<div class="fields">
+									<div class="field">
+										<label>Image Quality</label>
+										<div class="ui selection img-quality-dropdown dropdown">
+											<input type="hidden" name="img_quality">
+											<i class="dropdown icon"></i>
+											<div class="default text"></div>
+											<div class="menu">
+													<div class="item" data-value="10">10</div>
+													<div class="item" data-value="20">20 (default)</div>
+													<div class="item" data-value="30">30</div>
+													<div class="item" data-value="40">40</div>
+													<div class="item" data-value="50">50</div>
+													<div class="item" data-value="60">60</div>
+													<div class="item" data-value="70">70</div>
+													<div class="item" data-value="80">80</div>
+													<div class="item" data-value="90">90</div>
+													<div class="item" data-value="100">100</div>
+											</div>
+										</div>
+									</div>
+									<div class="field">
+										<label>Rendering Delay</label>
+										<div class="ui selection render-delay-dropdown dropdown">
+											<input type="hidden" name="render_delay">
+											<i class="dropdown icon"></i>
+											<div class="default text"></div>
+											<div class="menu">
+												<div class="item" data-value="3000">3s</div>
+												<div class="item" data-value="5000">5s (default)</div>
+												<div class="item" data-value="7000">7s</div>
+												<div class="item" data-value="10000">10s</div>
+											</div>
+										</div>
+									</div>
+									<div class="field">
+										<label>Video Skip Offset</label>
+										<div class="ui selection skip-offset-dropdown dropdown">
+											<input type="hidden" name="skip_offset">
+											<i class="dropdown icon"></i>
+											<div class="default text"></div>
+											<div class="menu">
+												<div class="item" data-value="30">30%</div>
+												<div class="item" data-value="50">50% (default)</div>
+												<div class="item" data-value="70">70%</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="fields">
+									<div class="field">
+										<label>Server Mode</label>
+										<div class="ui selection server-mode-dropdown dropdown">
+											<input type="hidden" name="server_mode">
+											<i class="dropdown icon"></i>
+											<div class="default text"></div>
+											<div class="menu">
+												<div class="item" data-value="localhost">Localhost</div>
+												<div class="item disabled" data-value="rickyserver">Ricky Server (Slow)</div>
+											</div>
+										</div>
+									</div>
+									<div class="field">
+										<label>Port</label>
+										<input type="text" name="port_num" placeholder="9000 (default)" value="9000">
+									</div>
+									<div class="field">
+										<label>Domain Sharding</label>
+										<div class="ui selection domain-sharding-dropdown dropdown">
+											<input type="hidden" name="domain_sharding">
+											<i class="dropdown icon"></i>
+											<div class="default text"></div>
+											<div class="menu">
+												<div class="item" data-value="1">6 req/batch</div>
+												<div class="item" data-value="2">12 req/batch</div>
+												<div class="item" data-value="3">18 req/batch (default)</div>
+												<div class="item" data-value="4">24 req/batch</div>
+												<div class="item" data-value="5">30 req/batch</div>
+												<div class="item" data-value="6">36 req/batch</div>
+												<div class="item" data-value="7">42 req/batch</div>
+												<div class="item" data-value="8">48 req/batch</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div> <!-- End or row -->
+						<div class="row">
+							<div class="ui segment">
+								<div class="row">
+									<div class="ui tiny three statistics">
+										<div class="statistic blue">
+											<div id="number_of_creatives_stat" class="value">0</div>
+											<div class="label">Creatives Total</div>
+										</div>
+										<div class="statistic green">
+											<div id="number_of_crt_loaded_stat" class="value">0</div>
+											<div class="label">Loaded</div>
+										</div>
+										<div class="statistic red">
+											<div id="number_of_crt_failed_stat" class="value">0</div>
+											<div class="label">Failed</div>
+										</div>
+									</div>
+								</div>
+								<div class="ui hidden divider" style="margin-top: 0.5em; margin-bottom: 0.5em;"></div>
+								<div class="row">
+									<div class="ui blue progress screenshot-progress-bar">
+										<div class="bar">
+											<div class="progress"></div>
+										</div>
+										<div class="label"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div> <!-- Row end -->
+			</div> <!-- Grid end -->
+		</div> <!-- container -->
+
+		<div class="ui divider"></div>
+
+		<div class="ui container" style="width: 95%;">
+
+		<div class="ui top attached tabular menu tab-menu">
+			<a class="item active" data-tab="banner">
+				<span>Banner</span>
+				<span id="number_of_crt_banner" class="crt-num-tab"></span>
+			</a>
+			<a class="item" data-tab="html">
+				<span>HTML</span>
+				<span id="number_of_crt_html" class="crt-num-tab"></span>
+			</a>
+			<a class="item" data-tab="vast">
+				<span>VAST</span>
+				<span id="number_of_crt_vast" class="crt-num-tab"></span>
+			</a>
+			<a class="item" data-tab="native">
+				<span>Native</span>
+				<span id="number_of_crt_native" class="crt-num-tab"></span>
+			</a>
+			<a class="item" data-tab="failed" class="crt-num-tab">
+				<span>Failed</span>
+				<span id="number_of_crt_failed crt-num-tab"></span>
+			</a>
+		</div>
+
+		<div class="ui bottom attached tab segment active" data-tab="banner">
+			<div class="ui cards banner-cards"></div>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="html">
+			<div class="ui cards html-cards"></div>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="vast">
+			<div class="ui cards vast-cards"></div>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="native">
+			<div class="ui cards native-cards"></div>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="failed">
+			<div class="ui cards failed-cards"></div>
+		</div>
+
+
+			<!-- <div class="ui cards"> -->
+			<!-- 	<div class="ui card" style="width: 240px;"> -->
+			<!-- 		<div class="image"> -->
+			<!-- 			<div class="ui placeholder"> -->
+			<!-- 				<div class="square image"></div> -->
+			<!-- 			</div> -->
+			<!-- 		</div> -->
+			<!-- 		<div class="content"> -->
+			<!-- 			<div class="ui placeholder"> -->
+			<!-- 				<div class="header"> -->
+			<!-- 					<div class="medium line"></div> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="paragraph"> -->
+			<!-- 					<div class="short line"></div> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
+			<!-- 		</div> -->
+			<!-- 		<div class="extra content"> -->
+			<!-- 			<div class="ui placeholder"> -->
+			<!-- 				<div class="paragraph"> -->
+			<!-- 					<div class="short line"></div> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
+			<!-- 		</div> -->
+			<!-- 	</div> -->
+			<!-- </div> -->
+
+		</div>
+
+		<!-- Modal Non Video -->
+		<div class="ui modal non-video">
+			<div class="header">
+				<span class="modal-crt-type"></span>
+			</div>
+			<div class="scrolling content">
+				<div class="ui grid">
+					<div class="row">
+						<img src="" class="ui centered bordered image modal-crt-img">
+					</div>
+					<div class="row">
+						<div class="ten wide column">
+							<div class="ui divided selection list">
+								<a class="item">
+									<div class="ui horizontal label">Bidder Id</div>
+									<span class="modal-crt-bidder-id"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Creative Id</div>
+									<span class="modal-crt-id"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Adomain</div>
+									<span class="modal-crt-adomain"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Blocked</div>
+									<span class="modal-crt-blocked"></span>
+								</a>
+							</div>
+						</div>
+						<div class="six wide column">
+							<div class="ui divided selection list">
+	 							<a class="item">
+									<div class="ui horizontal label">Impression</div>
+									<span class="modal-crt-imp"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Click</div>
+									<span class="modal-crt-click"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Revenue</div>
+									<span class="modal-crt-rev"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Size</div>
+									<span class="modal-crt-size"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="one column row">
+						<div class="column">
+							<div class="ui form">
+								<div class="field">
+									<label>Markup</label>
+									<textarea class="modal-crt-markup"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui blue approve button">
+					Close
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Video -->
+		<div class="ui modal video">
+			<div class="header">
+				<span class="video-modal-crt-type"></span>
+			</div>
+			<div class="scrolling content">
+				<div class="ui grid">
+					<div class="row">
+						<div class="seven wide column">
+							<img src="img/fail.png" class="ui right floated bordered image video-modal-crt-img">
+						</div>
+						<div class="two wide column"></div>
+						<div class="seven wide column">
+							<div id="vast-video-container">
+								<video id="vast-video-element" width="320" height="480" controls></video>
+								<div id="vast-ad-container"></div>
+							</div>
+							<div class="ui icon small basic buttons vast-player-btns" style="margin-top: 0.8rem;">
+								<button class="ui play button">
+									<i class="play icon"></i>
+								</button>
+								<button class="ui pause button">
+									<i class="pause icon"></i>
+								</button>
+								<button class="ui stop button">
+									<i class="stop icon"></i>
+								</button>
+								<button class="ui mute button">
+									<i class="volume up icon"></i>
+								</button>
+							</div>
+							<span class="modal-video-load-msg" style="margin-left: 5px;"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="ten wide column">
+							<div class="ui divided selection list">
+								<a class="item">
+									<div class="ui horizontal label">Bidder Id</div>
+									<span class="video-modal-crt-bidder-id"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Creative Id</div>
+									<span class="video-modal-crt-id"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Adomain</div>
+									<span class="video-modal-crt-adomain"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Blocked</div>
+									<span class="video-modal-crt-blocked"></span>
+								</a>
+							</div>
+						</div>
+						<div class="six wide column">
+							<div class="ui divided selection list">
+	 							<a class="item">
+									<div class="ui horizontal label">Impression</div>
+									<span class="video-modal-crt-imp"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Click</div>
+									<span class="video-modal-crt-click"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Revenue</div>
+									<span class="video-modal-crt-rev"></span>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Size</div>
+									<span class="video-modal-crt-size"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="one column row">
+						<div class="column">
+							<div class="ui form">
+								<div class="field">
+									<label>Markup</label>
+									<textarea class="video-modal-crt-markup"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- Scroll content end -->
+			<div class="actions">
+				<div class="ui blue approve button">
+					Close
+				</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript" src="lib/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="lib/semantic.min.js"></script>
+		<script type="text/javascript" src="lib/lodash.js"></script>
+		<script type="text/javascript" src="lib/calendar.min.js"></script>
+		<script type="text/javascript" src="lib/http.js"></script>
+		<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/helpers.js"></script>
+
+    <script type="text/javascript" src="js/domainManager.js"></script>
+    <script type="text/javascript" src="js/statManager.js"></script>
+    <script type="text/javascript" src="js/vastContainer.js"></script>
+    <script type="text/javascript" src="js/mraidContainer.js"></script>
+    <script type="text/javascript" src="js/vastPlayer.js"></script>
+    <script type="text/javascript" src="js/class/Creative.js"></script>
+    <script type="text/javascript" src="js/notifyManager.js"></script>
+    <script type="text/javascript" src="js/htmlFactory.js"></script>
+    <script type="text/javascript" src="js/formValidator.js"></script>
+    <script type="text/javascript" src="js/serverManager.js"></script>
+    <script type="text/javascript" src="js/cardRender.js"></script>
+
+    <script type="text/javascript" src="js/moPubAPI.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+	</body>
+</html>

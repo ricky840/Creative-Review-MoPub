@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>IMA HTML5 Simple Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="page-content">
+      <div id="video-container">
+        <video id="video-element" controls autoplay muted> 
+        </video>
+        <div id="ad-container"></div>
+      </div>
+      <button id="play-button">Play</button>
+    </div>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script>
+      
+      var videoElement;
+      var adsLoaded = false;
+      var adContainer;
+      var adsManager;
+
+      // On window load, attach an event to the play button click
+      // that triggers playback on the video element
+      window.addEventListener('load', function(event) {
+        videoElement = document.getElementById('video-element');
+        initializeIMA();
+
+        videoElement.addEventListener('play', function(event) {
+          loadAds(event);
+        });
+
+        var playButton = document.getElementById('play-button');
+        playButton.addEventListener('click', function(event) {
+          videoElement.play();
+        });
+
+
+      });
+
+
+function initializeIMA() {
+  console.log("initializing IMA");
+  adContainer = document.getElementById('ad-container');
+
+  adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoElement);
+  adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+  adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
+  adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+
+  // Let the AdsLoader know when the video has ended
+  videoElement.addEventListener('ended', function() {
+    adsLoader.contentComplete();
+  });
+
+  var adsRequest = new google.ima.AdsRequest();
+  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+    'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +
+    'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
+    'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
+  // adsRequest.adsResponse(xml);
+
+  adsRequest.linearAdSlotWidth = videoElement.clientWidth;
+  adsRequest.linearAdSlotHeight = videoElement.clientHeight;
+  adsRequest.nonLinearAdSlotWidth = videoElement.clientWidth;
+  adsRequest.nonLinearAdSlotHeight = videoElement.clientHeight / 3;
+
+  adsLoader.requestAds(adsRequest);
+
+}
+
+
+function loadAds(event) {
+
+  if(adsLoaded) {
+    return;
+  }
+
+  adsLoaded = true;
+  event.preventDefault(event);
+  console.log("loading ads");
+
+  videoElement.load();
+  adDisplayContainer.initialize();
+  var width = videoElement.clientWidth;
+  var height = videoElement.clientHeight;
+
+  try {
+    adsManager.init(width, height, google.ima.ViewMode.NORMAL);
+    adsManager.start();
+  } catch (adError) {
+    // Play the video without ads, if an error occurs
+    console.log("AdsManager could not be started");
+    console.log(adError);
+    videoElement.play();
+  }
+
+}
+
+function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  // Instantiate the AdsManager from the adsLoader response and pass it the video element
+
+
+  adsManager = adsManagerLoadedEvent.getAdsManager(videoElement);
+  adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
+  adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdStarted);
+
+}
+
+function onAdError(adErrorEvent) {
+  // Handle the error logging.
+  console.log(adErrorEvent.getError());
+  if(adsManager) {
+    adsManager.destroy();
+  }
+}
+
+function onAdStarted(AdEvent) {
+  console.log("started");
+  console.log(AdEvent.getAd().getMediaUrl());
+  console.log(AdEvent.getAdData());
+  adsManager.skip();
+}
+
+
+
+
+    </script>
+  </body>
+</html>
