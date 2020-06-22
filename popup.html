@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Creative Preview</title>
+		<title>Creative Review for MoPub</title>
     <link rel="stylesheet" type="text/css" href="css/semantic.css">
     <link rel="stylesheet" type="text/css" href="css/calendar.min.css">
 		<link rel="stylesheet" type="text/css" href="css/popup.css">
@@ -10,11 +10,17 @@
 	<body id="main_body">
 
 		<!-- Menu -->
-		<div class="ui tiny inverted blue menu no-radius">
+		<div class="ui tiny inverted black menu no-radius">
 			<a class="header item" href="">
-				<h4 style="margin-bottom: 0px;">Creative Review</h4>
+				<h4 style="margin-bottom: 0px;">Creative Review for MoPub</h4>
 				<div class="mopub-logo-menu"></div>
 			</a>
+			<div class="right menu">
+				<a class="item">
+					<i class="user circle large icon login-icon"></i>
+					<span id="logged-in-account" class="logged-in-account"></span>
+				</a>
+			</div>
 		</div>
 
 		<div class="ui container" style="width: 95%;">
@@ -44,15 +50,18 @@
 										<div class="item" data-value="file_upload">Upload a File</div>
 										<div class="item" data-value="single_creative">Single Creative</div>
 										<div class="item" data-value="mpx_line_item">Marketplace Line Item</div>
-										<div class="item" data-value="ad_unit">Ad Unit</div>
 										<div class="item" data-value="mpx_tab">Marketplace Tab</div>
+										<div class="item disabled" data-value="ad_unit">Ad Unit (Not supported)</div>
 									</div>
 								</div>
 							</div>
 			
 							<div class="required field field-upload-file fetch-source" style="display: none;">
-								<label>Upload a file</label>
-								<input type="file" id="upload-file" accept=".csv">
+								<div class="ui info message">
+									<p>It looks for <b>Creative ID + Bidder ID</b> column in CSV. Also, double check if the file included the title row.</p>
+								</div>
+								<label>Upload CSV file</label>
+								<input type="file" id="upload-file" accept=".csv" name="uploaded_file">
 							</div>
 							
 							<div class="required field fetch-calendar-field fetch-source" style="display: none;">
@@ -87,10 +96,10 @@
 							</div>
 
 							<div class="field">
-								<label>Creative Format</label>
+								<label>Creative Format (Leave blank for all formats)</label>
 									<select multiple="" class="ui dropdown creative-format-dropdown">
 										<option value="">All formats (default)</option>
-										<option value="banner">Banner (320x50)</option>
+										<option value="banner">Banner (320x50 only)</option>
 										<option value="html">HTML</option>
 										<option value="vast">VAST</option>
 										<option value="native">Native</option>
@@ -193,16 +202,16 @@
 							</form>
 						</div> <!-- End or row -->
 						<div class="row">
-							<div class="ui segment">
+							<div class="ui grey small segment">
 								<div class="row">
-									<div class="ui tiny three statistics">
+									<div class="ui small three statistics">
 										<div class="statistic blue">
 											<div id="number_of_creatives_stat" class="value">0</div>
 											<div class="label">Creatives Total</div>
 										</div>
 										<div class="statistic green">
 											<div id="number_of_crt_loaded_stat" class="value">0</div>
-											<div class="label">Loaded</div>
+											<div class="label">Success</div>
 										</div>
 										<div class="statistic red">
 											<div id="number_of_crt_failed_stat" class="value">0</div>
@@ -223,7 +232,6 @@
 						</div>
 					</div>
 
-
 				</div> <!-- Row end -->
 			</div> <!-- Grid end -->
 		</div> <!-- container -->
@@ -232,72 +240,44 @@
 
 		<div class="ui container" style="width: 95%;">
 
-		<div class="ui top attached tabular menu tab-menu">
-			<a class="item active" data-tab="banner">
-				<span>Banner</span>
-				<span id="number_of_crt_banner" class="crt-num-tab"></span>
-			</a>
-			<a class="item" data-tab="html">
-				<span>HTML</span>
-				<span id="number_of_crt_html" class="crt-num-tab"></span>
-			</a>
-			<a class="item" data-tab="vast">
-				<span>VAST</span>
-				<span id="number_of_crt_vast" class="crt-num-tab"></span>
-			</a>
-			<a class="item" data-tab="native">
-				<span>Native</span>
-				<span id="number_of_crt_native" class="crt-num-tab"></span>
-			</a>
-			<a class="item" data-tab="failed" class="crt-num-tab">
-				<span>Failed</span>
-				<span id="number_of_crt_failed crt-num-tab"></span>
-			</a>
-		</div>
+			<div class="ui top attached tabular menu tab-menu">
+				<a class="item active" data-tab="banner">
+					<span>Banner</span>
+					<span id="number_of_crt_banner" class="crt-num-tab"></span>
+				</a>
+				<a class="item" data-tab="html">
+					<span>HTML</span>
+					<span id="number_of_crt_html" class="crt-num-tab"></span>
+				</a>
+				<a class="item" data-tab="vast">
+					<span>VAST</span>
+					<span id="number_of_crt_vast" class="crt-num-tab"></span>
+				</a>
+				<a class="item" data-tab="native">
+					<span>Native</span>
+					<span id="number_of_crt_native" class="crt-num-tab"></span>
+				</a>
+				<a class="item" data-tab="failed">
+					<span>Failed</span>
+					<span id="number_of_crt_failed" class="crt-num-tab"></span>
+				</a>
+			</div>
 
-		<div class="ui bottom attached tab segment active" data-tab="banner">
-			<div class="ui cards banner-cards"></div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="html">
-			<div class="ui cards html-cards"></div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="vast">
-			<div class="ui cards vast-cards"></div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="native">
-			<div class="ui cards native-cards"></div>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="failed">
-			<div class="ui cards failed-cards"></div>
-		</div>
-
-
-			<!-- <div class="ui cards"> -->
-			<!-- 	<div class="ui card" style="width: 240px;"> -->
-			<!-- 		<div class="image"> -->
-			<!-- 			<div class="ui placeholder"> -->
-			<!-- 				<div class="square image"></div> -->
-			<!-- 			</div> -->
-			<!-- 		</div> -->
-			<!-- 		<div class="content"> -->
-			<!-- 			<div class="ui placeholder"> -->
-			<!-- 				<div class="header"> -->
-			<!-- 					<div class="medium line"></div> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="paragraph"> -->
-			<!-- 					<div class="short line"></div> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
-			<!-- 		</div> -->
-			<!-- 		<div class="extra content"> -->
-			<!-- 			<div class="ui placeholder"> -->
-			<!-- 				<div class="paragraph"> -->
-			<!-- 					<div class="short line"></div> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
-			<!-- 		</div> -->
-			<!-- 	</div> -->
-			<!-- </div> -->
+			<div class="ui bottom attached tab segment active" data-tab="banner">
+				<div class="ui cards banner-cards"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="html">
+				<div class="ui cards html-cards"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="vast">
+				<div class="ui cards vast-cards"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="native">
+				<div class="ui cards native-cards"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="failed">
+				<div class="ui cards failed-cards"></div>
+			</div>
 
 		</div>
 
@@ -327,8 +307,8 @@
 									<span class="modal-crt-adomain"></span>
 								</a>
 								<a class="item">
-									<div class="ui horizontal label">Blocked</div>
-									<span class="modal-crt-blocked"></span>
+									<div class="ui horizontal label">Size</div>
+									<span class="modal-crt-size"></span>
 								</a>
 							</div>
 						</div>
@@ -346,10 +326,6 @@
 									<div class="ui horizontal label">Revenue</div>
 									<span class="modal-crt-rev"></span>
 								</a>
-								<a class="item">
-									<div class="ui horizontal label">Size</div>
-									<span class="modal-crt-size"></span>
-								</a>
 							</div>
 						</div>
 					</div>
@@ -366,9 +342,10 @@
 				</div>
 			</div>
 			<div class="actions">
-				<div class="ui blue approve button">
-					Close
-				</div>
+				<div class="ui red block mopub-button-radius button left floated basic">Block across all apps</div>
+				<div class="ui button left floated block-status-btn"></div>
+				<div class="ui blue basic mopub-button-radius button preview-mopub-btn" data-tooltip="MoPub Internal Only">Preview in MoPub</div>
+				<div class="ui mopub-button-color mopub-button-radius approve button">Close</div>
 			</div>
 		</div>
 
@@ -407,8 +384,11 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="ten wide column">
+						<div class="nine wide column">
 							<div class="ui divided selection list">
+								<a class="item">
+									<p>Creative Infomation</p>
+								</a>
 								<a class="item">
 									<div class="ui horizontal label">Bidder Id</div>
 									<span class="video-modal-crt-bidder-id"></span>
@@ -422,13 +402,16 @@
 									<span class="video-modal-crt-adomain"></span>
 								</a>
 								<a class="item">
-									<div class="ui horizontal label">Blocked</div>
-									<span class="video-modal-crt-blocked"></span>
+									<div class="ui horizontal label">Size</div>
+									<span class="video-modal-crt-size"></span>
 								</a>
 							</div>
 						</div>
-						<div class="six wide column">
+						<div class="seven wide column">
 							<div class="ui divided selection list">
+	 							<a class="item">
+									<p>Only available if fetched from MPX tab or line item</p>
+								</a>
 	 							<a class="item">
 									<div class="ui horizontal label">Impression</div>
 									<span class="video-modal-crt-imp"></span>
@@ -440,10 +423,6 @@
 								<a class="item">
 									<div class="ui horizontal label">Revenue</div>
 									<span class="video-modal-crt-rev"></span>
-								</a>
-								<a class="item">
-									<div class="ui horizontal label">Size</div>
-									<span class="video-modal-crt-size"></span>
 								</a>
 							</div>
 						</div>
@@ -461,19 +440,19 @@
 				</div>
 			</div> <!-- Scroll content end -->
 			<div class="actions">
-				<div class="ui blue approve button">
-					Close
-				</div>
+				<div class="ui red block mopub-button-radius button left floated basic">Block across all apps</div>
+				<div class="ui button left floated block-status-btn"></div>
+				<div class="ui blue basic mopub-button-radius button preview-mopub-btn" data-tooltip="MoPub Internal Only">Preview in MoPub</div>
+				<div class="ui mopub-button-color mopub-button-radius approve button">Close</div>
 			</div>
 		</div>
-
-
 
 		<script type="text/javascript" src="lib/jquery-3.4.1.min.js"></script>
 		<script type="text/javascript" src="lib/semantic.min.js"></script>
 		<script type="text/javascript" src="lib/lodash.js"></script>
 		<script type="text/javascript" src="lib/calendar.min.js"></script>
 		<script type="text/javascript" src="lib/http.js"></script>
+		<script type="text/javascript" src="lib/papaparse.min.js"></script>
 		<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 
     <script type="text/javascript" src="js/global.js"></script>
@@ -490,6 +469,9 @@
     <script type="text/javascript" src="js/formValidator.js"></script>
     <script type="text/javascript" src="js/serverManager.js"></script>
     <script type="text/javascript" src="js/cardRender.js"></script>
+    <script type="text/javascript" src="js/csvManager.js"></script>
+    <script type="text/javascript" src="js/accountManager.js"></script>
+    <script type="text/javascript" src="js/creativeBlocker.js"></script>
 
     <script type="text/javascript" src="js/moPubAPI.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>

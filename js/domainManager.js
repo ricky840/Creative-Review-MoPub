@@ -11,7 +11,7 @@ var domainManager = (function(global) {
 		}
 		return domain;
 	}
- 
+
   return {
 		getDomain: getDomain
   }

@@ -1,2 +1,1 @@
-# WaterfallBuilderChromeExt
-Waterfall Builder Chrome Extension Tool for MoPub Twitter
+# Creative Review Tool for MoPub

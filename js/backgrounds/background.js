@@ -37,7 +37,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 		return false;
 	}
 
-	// if (badgeManager.getBadgeStaus()) {
+	if (badgeManager.getBadgeStaus()) {
 		chrome.windows.create({
 			url: chrome.runtime.getURL("popup.html"),
 			type: "popup"
@@ -46,14 +46,14 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 			WindowId = window.id
 			// Do something after open window
 		});
-	// } else {
-		// Notification
-		// notificationManager.show({
-		// 	id: "take_me_to_mopub_ui-" + getCurrentDatetimeUTC(),
-		// 	title: "Login to MoPub Dashboard",
-		// 	message: "If you are already logged in, click here to open MoPub UI",
-		// });
-	// }
+	} else {
+		Notification
+		notificationManager.show({
+			id: "take_me_to_mopub_ui-" + getCurrentDatetimeUTC(),
+			title: "Login to MoPub Dashboard",
+			message: "If you are already logged in, click here to open MoPub UI",
+		});
+	}
 });
 
 // Fire when ext installed
@@ -238,8 +238,11 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   },
   {
     urls: [ 
+			"https://app.mopub.com/web-client/api/line-items/dsp-creatives/query*",
 			"https://app.mopub.com/web-client/api/marketplace/dsp-creatives/query*",
-			"https://app.mopub.com/web-client/api/dsps/creative*"
+			"https://app.mopub.com/web-client/api/dsps/creative*",
+			"https://app.mopub.com/web-client/api/account/create-creative-id-blocks*",
+			"https://app.mopub.com/web-client/api/users/query*"
     ]
   },
   ["requestHeaders", "extraHeaders", "blocking"]

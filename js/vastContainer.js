@@ -22,7 +22,7 @@ var vastContainer = (function(global) {
 			</head>
 			<body style="margin: 0; padding: 0;">
 			<div id="wrapper">
-				<video width="320" height="480" controls id="vast-video" muted>
+				<video width="320" height="480" controls id="vast-video" autoplay muted>
 					<source id="sourceUrl">
 				</video>
 				<div id="overlay" class="overlay" style="display: none;">
@@ -31,7 +31,7 @@ var vastContainer = (function(global) {
 			</div>
 			<script>
 				const video = document.getElementById('vast-video');
-				video.addEventListener('durationchange', function() {
+				video.addEventListener('loadedmetadata', function() {
 					let offset = parseInt(video.duration / 100 * ${SkipOffset});
 					if (offset <= 0) {
 						video.currentTime = 2;	

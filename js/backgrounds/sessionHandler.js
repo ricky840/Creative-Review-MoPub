@@ -39,10 +39,9 @@ var sessionHandler = (function(global) {
 		if (views.length > 0) {
 			let popup = views[0];
 			popup.accountManager.updateHtmlEmail();
-			popup.notifier.show({
-				header: "Sudo Detected! (account changed)",
-				message: "Please refresh the page to reload ad units. <a href=''>Click here to refresh.</a>",
-				type: "negative"
+			popup.notifyManager.info({
+				header: "Account Changed",
+				description: "Refresh the page to reload"
 			});
 		}
 	}

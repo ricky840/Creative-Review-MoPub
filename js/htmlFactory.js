@@ -24,7 +24,7 @@ var htmlFactory = (function(global) {
 		</div>
 		<div class="extra content">
 			<span class="card-ad-size"></span>
-			<a class="card-ad-see-markup-btn right floated">See Markup</a>
+			<span class="card-ad-download right floated">Download</span>
 		</div>
 	</div>`;
 
@@ -51,7 +51,7 @@ var htmlFactory = (function(global) {
 		</div>
 		<div class="extra content">
 			<span class="card-ad-size"></span>
-			<a class="card-ad-see-markup-btn right floated">See Markup</a>
+			<a class="card-ad-see-markup-btn right floated">Download</a>
 		</div>
 	</div>`;
 

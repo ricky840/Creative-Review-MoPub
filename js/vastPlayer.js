@@ -34,7 +34,7 @@ var vastPlayer = (function(global) {
 
 		// Construct ad request
 		let adsRequest = new google.ima.AdsRequest();
-		adsRequest.vastLoadTimeout = 20000 // load timeout
+		adsRequest.vastLoadTimeout = 30000 // load timeout
 		adsRequest.linearAdSlotWidth = videoElement.clientWidth;
 		adsRequest.linearAdSlotHeight = videoElement.clientHeight;
 		adsRequest.nonLinearAdSlotWidth = videoElement.clientWidth;
@@ -45,7 +45,7 @@ var vastPlayer = (function(global) {
 
 	function onAdsManagerLoaded(adsManagerLoadedEvent) {
 		let adsRenderingSettings = new google.ima.AdsRenderingSettings();
-		adsRenderingSettings.loadVideoTimeout = 20000; // default is 8 seconds
+		adsRenderingSettings.loadVideoTimeout = 30000; // default is 8 seconds
 
 		adsManager = adsManagerLoadedEvent.getAdsManager(videoElement, adsRenderingSettings);
 		adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
@@ -81,6 +81,10 @@ var vastPlayer = (function(global) {
 	function onAdError(adErrorEvent) {
 		// Handle the error logging.
 		console.log(adErrorEvent.getError());
+
+		let link = `Error - <a href="${VAST_DATSWATSUP_COM}" target="_blank">try again here</a>`;
+		$(statusMsg).html(link);
+
 		if(adsManager) {
 			adsManager.destroy();
 		}
@@ -182,6 +186,3 @@ var vastPlayer = (function(global) {
 		stop: stop
   }
 })(this);
-
-
-

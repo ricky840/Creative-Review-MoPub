@@ -23,6 +23,14 @@ var cardRender = (function(global) {
 		$(creativeHtml).find(".card-ad-creative-id").html(creative.getCreativeId());
 		$(creativeHtml).find(".card-ad-bidder-id").html(creative.getBidderId());
 
+		if (creative.getBlocked() === undefined) {
+			$(creativeHtml).find(".extra.content").addClass("noinfo-crt"); // no info
+		} else if (creative.getBlocked() === true) {
+			$(creativeHtml).find(".extra.content").addClass("blocked-crt"); // blocked
+		} else if (creative.getBlocked() === false) {
+			$(creativeHtml).find(".extra.content").addClass("allowed-crt"); // allowed
+		}
+
 		switch (creative.getType()) {
 			case "banner":
 				$(creativeHtml).find(".card-ad-size").html("BANNER");

@@ -5,7 +5,7 @@ class Creative {
 		this._type = ""; // banner(height 50 only) | vast | vast_tag | html | native
 		this._markup = "";
 		this._markUpWithContainer = "";
-		this._blocked = false;
+		this._blocked = undefined; // true, false, undefined (if no information returned)
 		this._impressions = 0;
 		this._publisherRevenue = 0;
 		this._clicks = 0;

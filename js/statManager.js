@@ -16,8 +16,8 @@ var statManager = (function(global) {
 			case "total":
 				totalNumberOfCreatives += number;
 				$("#number_of_creatives_stat").html(totalNumberOfCreatives);
-				$(".ui.progress").progress("set total", totalNumberOfCreatives);
 				$(".ui.progress").progress("set active");
+				$(".ui.progress").progress("set total", totalNumberOfCreatives);
 				break;
 			case "success":
 				successNumberOfCreatives += number;
@@ -29,6 +29,7 @@ var statManager = (function(global) {
 				$("#number_of_crt_failed").html(failNumberOfCreatives);
 				$("#number_of_crt_failed_stat").html(failNumberOfCreatives);
 				$(".ui.progress").progress('increment', number);
+				if (totalNumberOfCreatives == failNumberOfCreatives) notifyManager.error(NO_SERVER_RUNNING);
 				break;
 			case "vast":
 				vastXmlCreatives += number;
@@ -67,6 +68,7 @@ var statManager = (function(global) {
 		$("#number_of_crt_html").html("");
 		$("#number_of_crt_native").html("");
 		$("#number_of_crt_vast").html("");
+		$("#number_of_crt_failed").html("");
 		$("#number_of_creatives_stat").html("0");
 		$("#number_of_crt_loaded_stat").html("0");
 		$("#number_of_crt_failed_stat").html("0");
@@ -74,13 +76,6 @@ var statManager = (function(global) {
 		$(".ui.progress").progress("reset");
 		$(".ui.progress").progress("remove active");
 		$(".ui.progress").progress("remove success");
-		$('.ui.progress').progress({
-			showActivity: false,
-			text: {
-				active: 'Processing {value} of {total}',
-				success: 'Done'
-			}
-		});
 	}
  
   return {

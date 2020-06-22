@@ -1,7 +1,7 @@
 {
-  "name": "Creative Preview",
+  "name": "Creative Review for MoPub",
   "version": "0.0.1",
-  "description": "Preview Creatives",
+  "description": "Review creatives served from MoPub marketplace",
   "manifest_version": 2,
   "background": {
     "persistent": true,
@@ -9,6 +9,7 @@
       "lib/jquery-3.4.1.min.js",
       "lib/lodash-core.js",
       "lib/http.js",
+      "js/helpers.js",
       "js/backgrounds/backgroundStatic.js",
       "js/backgrounds/notificationManager.js",
       "js/backgrounds/badgeManager.js",
@@ -30,6 +31,7 @@
   },
   "permissions": [
     "storage",
+		"unlimitedStorage",
     "webRequest",
     "webRequestBlocking",
     "*://*.mopub.com/",

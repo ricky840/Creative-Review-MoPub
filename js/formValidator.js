@@ -6,6 +6,7 @@ var formValidator = (function(global) {
 		let creativeId, bidderId;
 		let imgQuality, renderDelay, skipOffset, serverMode, portNumber, domainShard;
 		let creativeFormats;
+		let uploadedCreatives;
 
 		for (let i=0; i < formData.length; i++) {
 			switch(formData[i].name) {
@@ -47,6 +48,9 @@ var formValidator = (function(global) {
 					break;
 				case "domain_sharding":
 					domainShard = formData[i].value;
+					break;
+				case "uploaded_creatives":
+					uploadedCreatives = formData[i].value;
 					break;
 			}
 		}
@@ -99,7 +103,13 @@ var formValidator = (function(global) {
 		}
 
 		// Validate file upload
-		// [To-do]
+		if (fetchSource == "file_upload" && uploadedCreatives.length == 0) {
+			notifyManager.error({
+				header: "Form Validation Error",
+				description: "Please upload a csv file to proceed"
+			});
+			return false;
+		}
 
 		// Validate port number, if it was not provided use default.
 		const isNumberRegex = /^\d+$/;
@@ -126,7 +136,8 @@ var formValidator = (function(global) {
 			skipOffset: skipOffset,
 			serverMode: serverMode,
 			portNumber: portNumber,
-			domainShard: domainShard
+			domainShard: domainShard,
+			uploadedCreatives: uploadedCreatives
 		};
 	}
  

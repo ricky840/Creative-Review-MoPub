@@ -74,6 +74,20 @@ var moPubAPI = (function(global) {
 		});
 	}
 
+	function getCreativesByBulkCreativeIds(bulkData, callback) {
+		let promises = [];
+		let creatives = [];
+		for (let i=0; i < bulkData.length; i++) {
+			let creative = new Creative(bulkData[i].creativeId, bulkData[i].bidderId);
+			creatives.push(creative);
+			promises.push(creative.loadMarkUp());	
+		}
+		// Don't promise all to be successful
+		Promise.allSettled(promises).then(response => {
+			callback(creatives);
+		});
+	}
+
   function getCreativeForAdUnit(adunit) {
 
   }
@@ -82,6 +96,7 @@ var moPubAPI = (function(global) {
     getCreativeForAdUnit: getCreativeForAdUnit,
     getCreative: getCreative,
     getCreativesByLineItem: getCreativesByLineItem,
-    getCreativesForMarketPlaceTab: getCreativesForMarketPlaceTab
+    getCreativesForMarketPlaceTab: getCreativesForMarketPlaceTab,
+		getCreativesByBulkCreativeIds: getCreativesByBulkCreativeIds
   }
 })(this);

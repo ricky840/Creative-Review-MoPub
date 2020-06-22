@@ -2,6 +2,11 @@
 	border-radius: 0px !important;
 }
 
+/* login icon */
+.login-icon {
+	color: #1da1f2 !important;
+}
+
 /* Card */
 .ad-card {
 	min-width: min-content !important;
@@ -54,16 +59,16 @@
 	color: #1da1f2;
 }
 
-.crt-num-tab {
-	margin-left: 5px;
+/* Block status */
+.allowed-crt {
+	background-color: #D5F5E3 !important;
 }
-
-
-
-
-
-
-
+.blocked-crt {
+	background-color: #FADBD8 !important;
+}
+.noinfo-crt {
+	background-color: #F2F4F4 !important;
+}
 
 #vast-video-container {
   position: relative;
@@ -110,3 +115,43 @@
 	border-radius: 1.6rem !important;
 }
 
+/* menu bar */
+.ui.menu {
+	box-shadow: 0 2px 5px rgba(0,0,0,.35) !important;
+}
+
+/* Login user */
+.logged-in-account {
+	font-weight: bold;
+	font-size: 1.1em !important;
+	word-break: break-all;
+	/* width: 238px; */
+}
+.logged-in-account-desc {
+	font-weight: normal;
+	font-size: 0.8em !important;
+	/* color: gray; */
+	margin-top: 5px;
+}
+
+/* Creative count */
+.crt-num-tab {
+	margin-left: 5px;
+	font-weight: bold;
+	color: #1da1f2 !important;
+}
+
+/* Download link */
+.card-ad-download:hover {
+	text-decoration: underline !important;	
+	color: #1da1f2 !important;
+}
+
+/* Block status button */
+.block-status-btn {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	background: transparent !important;
+	font-weight: normal !important;
+	cursor: auto;
+}
