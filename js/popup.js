@@ -15,7 +15,7 @@ $(document).ready(function() {
 	$('.ui.progress').progress({
 		showActivity: false,
 		onChange: function(percent, value, total) {
-			if (value > 0) {
+			if (value > 0 && value != total) {
 				$(this).progress("set label", "Processed {value} / {total}");
 				subBtnStatus("in-progress");
 			} else if (value == 0) {
