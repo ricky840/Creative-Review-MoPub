@@ -21,6 +21,9 @@ $(document).ready(function() {
 			} else if (value == 0) {
 				$(this).progress("set label", " ");
 				subBtnStatus("reset");
+			} else if (value == total) {
+				$(this).progress("set label", " ");
+				subBtnStatus("reset");
 			}
 		},
 		onSuccess: function(total) {
