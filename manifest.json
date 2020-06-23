@@ -36,7 +36,6 @@
     "*://*.mopub.com/",
     "*://*.herokuapp.com/",
     "*://*.datswatsup.com/",
-		"notifications",
-		"unlimitedStorage"
+		"notifications"
   ]
 }
