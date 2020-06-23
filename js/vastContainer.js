@@ -22,7 +22,7 @@ var vastContainer = (function(global) {
 			</head>
 			<body style="margin: 0; padding: 0;">
 			<div id="wrapper">
-				<video width="320" height="480" controls id="vast-video" autoplay muted>
+				<video width="320" height="480" id="vast-video" controls autoplay muted>
 					<source id="sourceUrl">
 				</video>
 				<div id="overlay" class="overlay" style="display: none;">
@@ -34,10 +34,11 @@ var vastContainer = (function(global) {
 				video.addEventListener('loadedmetadata', function() {
 					let offset = parseInt(video.duration / 100 * ${SkipOffset});
 					if (offset <= 0) {
-						video.currentTime = 2;	
+						video.currentTime = 2;
 					} else {
 						video.currentTime = offset;
 					}
+					video.play();
 				});
 				video.addEventListener('error', onError, true);
 				function onError(event) {
