@@ -21,7 +21,7 @@
   },
   "browser_action": {
     "default_icon": "img/default-logo.png",
-    "default_title": "Creative Preview"
+    "default_title": "Creative Review for MoPub"
   },
 	"content_security_policy": "script-src 'self' https://*.googleapis.com/ https://*.google.com/ 'unsafe-eval' https://*.2mdn.net/ 'sha256-yskPWnDOHRDWHXisR6ZuTxbghg2ZQLR9fWqvr3ZhFW0='; object-src 'self'",
   "icons": {
