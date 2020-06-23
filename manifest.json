@@ -1,6 +1,6 @@
 {
   "name": "Creative Review for MoPub",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Review creatives served from MoPub marketplace",
   "manifest_version": 2,
   "background": {
