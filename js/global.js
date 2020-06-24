@@ -28,14 +28,13 @@ const SERVER_FIXED_OPTIONS = [
 FAIL_IMG = "img/fail.png";
 
 // TEMP
-NUMBER_OF_CREATIVE_TO_LOAD = 1000;
+NUMBER_OF_CREATIVE_TO_LOAD = 10000;
 
 // Default Screen Size
 const DEFAULT_SCREEN_WIDTH = 320;
 const DEFAULT_SCREEN_HEIGHT = 480;
 
 const SHARDING_DOMAINS = [
-	"http://localhost", 
 	"http://find-creative-1.datswatsup.com",
 	"http://find-creative-2.datswatsup.com",
 	"http://find-creative-3.datswatsup.com",
