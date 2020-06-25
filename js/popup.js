@@ -230,9 +230,10 @@ $(document).ready(function() {
 		chrome.storage.local.set({creatives: {}}, function() {
 			switch(userConfig.fetchSource) {
 				case "single_creative":
-					moPubAPI.getCreative(userConfig.bidderId, userConfig.creativeId, function(creative) {
-						let filteredCreatives = creativeFormatFilter([creative], userConfig.creativeFormats);
+					moPubAPI.getCreative(userConfig.bidderId, userConfig.creativeId, function(creatives) {
+						let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
 						if (filteredCreatives.length == 0) {
+              subBtnStatus("reset");
 							zeroCreative();
 							return;
 						}
@@ -246,6 +247,7 @@ $(document).ready(function() {
 					moPubAPI.getCreativesForMarketPlaceTab(userConfig.dateStr, function(creatives) {
 						let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
 						if (filteredCreatives.length == 0) {
+              subBtnStatus("reset");
 							zeroCreative();
 							return;
 						}
@@ -259,6 +261,7 @@ $(document).ready(function() {
 					moPubAPI.getCreativesByLineItem(userConfig.dateStr, userConfig.marketPlaceLineItemKey, function(creatives) {
 						let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
 						if (filteredCreatives.length == 0) {
+              subBtnStatus("reset");
 							zeroCreative();
 							return;
 						}
@@ -274,6 +277,7 @@ $(document).ready(function() {
 						csvManager.reset();
 						let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
 						if (filteredCreatives.length == 0) {
+              subBtnStatus("reset");
 							zeroCreative();
 							return;
 						}

@@ -38,5 +38,5 @@
     "*://*.datswatsup.com/*",
 		"notifications"
   ],
-	"content_security_policy": "script-src 'self' https://*.googleapis.com/ https://*.google.com/ https://*.2mdn.net/ 'sha256-yskPWnDOHRDWHXisR6ZuTxbghg2ZQLR9fWqvr3ZhFW0='; object-src 'self'"
+	"content_security_policy": "script-src 'self' https://*.googleapis.com/ https://*.google.com/ 'unsafe-eval' https://*.2mdn.net/ 'sha256-yskPWnDOHRDWHXisR6ZuTxbghg2ZQLR9fWqvr3ZhFW0='; object-src 'self'"
 }

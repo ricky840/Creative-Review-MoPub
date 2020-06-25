@@ -50,8 +50,11 @@ var moPubAPI = (function(global) {
   function getCreative(bidderId, creativeId, callback) {
 		let creative = new Creative(creativeId, bidderId);
 		creative.loadMarkUp().then(function(result) {
-			callback(creative);
-		});
+			callback([creative]);
+		}).catch(function(error) {
+			console.log(error);
+			callback([]);
+    });
   }
 
   function getCreativesForMarketPlaceTab(dateStr, callback) {

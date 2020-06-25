@@ -14,16 +14,16 @@ var formValidator = (function(global) {
 					fetchSource = formData[i].value;
 					break;
 				case "creative_id":
-					creativeId = formData[i].value;
+					creativeId = formData[i].value.trim();
 					break;
 				case "bidder_id":
-					bidderId = formData[i].value;
+					bidderId = formData[i].value.trim();
 					break;
 				case "mpx_line_item_id":
-					marketPlaceLineItemKey = formData[i].value;
+					marketPlaceLineItemKey = formData[i].value.trim();
 					break;
 				case "adunit_id":
-					adUnitKey = formData[i].value;
+					adUnitKey = formData[i].value.trim();
 					break;
 				case "date_str":
 					dateStr = formData[i].value;
@@ -44,7 +44,7 @@ var formValidator = (function(global) {
 					serverMode = formData[i].value;
 					break;
 				case "port_num":
-					portNumber = formData[i].value;
+					portNumber = formData[i].value.trim();
 					break;
 				case "domain_sharding":
 					domainShard = formData[i].value;
