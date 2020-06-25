@@ -40,6 +40,9 @@ var vastContainer = (function(global) {
 					}
 					video.play();
 				});
+				video.addEventListener('loadeddata', function() {
+					video.pause();
+				});
 				video.addEventListener('error', onError, true);
 				function onError(event) {
 					document.getElementById('overlay').style.display = "block";
