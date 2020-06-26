@@ -8,6 +8,9 @@ $(document).ready(function() {
 	// Account Info
 	accountManager.updateHtmlEmail();
 
+	// Get bidder list
+	bidderManager.fetchBidderList();
+
 	// Version
 	document.title += ` v${chrome.runtime.getManifest().version}`;
 
@@ -73,6 +76,7 @@ $(document).ready(function() {
 
 	// File upload event
 	$('input[type="file"]').on('change', function() {
+		$(".upload-loader").addClass("active");
 		let file = $(this).prop('files')[0];
 		if (file == undefined) return;
 
@@ -82,6 +86,7 @@ $(document).ready(function() {
 				csvManager.reset();
 				notifyManager.error(ERROR_FILE_IS_NOT_VALID);			
 			}
+			$(".upload-loader").removeClass("active");
 		});
 	});
 

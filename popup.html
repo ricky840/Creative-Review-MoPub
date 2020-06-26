@@ -37,6 +37,9 @@
 
 				<div class="row">
 					<div class="eight wide column">
+						<div class="ui inverted dimmer upload-loader">
+							<div class="ui text loader">Uploading..</div>
+						</div>
 
 						<form class="ui small form ad-form">
 
@@ -58,7 +61,7 @@
 			
 							<div class="required field field-upload-file fetch-source" style="display: none;">
 								<div class="ui info message">
-									<p>It looks for <b>Creative ID + Bidder ID</b> column in CSV. Also, double check if the file included the title row.</p>
+									<p> The file should include <b>Creative ID + Bidder ID</b> column or <b>Creative ID</b> AND <b>Bidder Name</b> in the title row. Column names are case sensitive.
 								</div>
 								<label>Upload CSV file</label>
 								<input type="file" id="upload-file" accept=".csv" name="uploaded_file">
@@ -467,6 +470,7 @@
     <script type="text/javascript" src="js/notifyManager.js"></script>
     <script type="text/javascript" src="js/htmlFactory.js"></script>
     <script type="text/javascript" src="js/formValidator.js"></script>
+    <script type="text/javascript" src="js/bidderManager.js"></script>
     <script type="text/javascript" src="js/serverManager.js"></script>
     <script type="text/javascript" src="js/cardRender.js"></script>
     <script type="text/javascript" src="js/csvManager.js"></script>

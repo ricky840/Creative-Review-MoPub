@@ -4,6 +4,7 @@ const API_GET_MPX_CREATIVE_LIST = "/web-client/api/marketplace/dsp-creatives/que
 const API_GET_LINE_ITEM_CREATIIVE_LIST = "/web-client/api/line-items/dsp-creatives/query?";
 const API_GET_USER_LIST = "/web-client/api/users/query";
 const API_BLOCK_CREATIVE = "/web-client/api/account/create-creative-id-blocks";
+const API_DSP_LIST = "/web-client/api/dsps/query";
 
 const MRAID_CDN = "https://d2al1opqne3nsh.cloudfront.net/js/mraid.js";
 
@@ -57,13 +58,13 @@ const VAST_DATSWATSUP_COM = "http://vast.datswatsup.com/";
 // 
 // When uploaded file is not valid
 const ERROR_FILE_IS_NOT_VALID = {
-	header: "File Invalid",
-	description: "Uploaded file is either in the wrong format or has no valid creative and bidder ids"
+	header: "File Invalid Error",
+	description: "Uploaded file is either in the wrong format or the bidder list is not available. Upload the correct file format or refresh the page, and try it again."
 };
 // When there is no creative returned from MoPub UI
 const ERROR_NO_CREATIVE = {
 	header: "No Creatives",
-	description: "There is no creative to process. Remove filter or login to MoPub UI and try again"
+	description: "There is no creative to process. Remove filter or login to MoPub UI and try again."
 };
 // When all creative is failed
 const NO_SERVER_RUNNING = {
