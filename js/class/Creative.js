@@ -203,8 +203,8 @@ class Creative {
 
 	loadMarkUp() {
 		return new Promise((resolve, reject) => {
-		     let request = { url: API_BASE + API_GET_CREATIVE + `id=${this._bidderId}&creativeId=${this._creativeId}` };
-			   // let request = { url: API_BASE + API_GET_CREATIVE + `id=f67445oEOC&creativeId=147220:02d931efee80a07618857bb661f04557` };
+			let request = { url: API_BASE + API_GET_CREATIVE + `id=${this._bidderId}&creativeId=${this._creativeId}` };
+			// let request = { url: API_BASE + API_GET_CREATIVE + `id=f67445oEOC&creativeId=147220:02d931efee80a07618857bb661f04557` };
 			this._didMarkUpLoaded = "loading";
 			http.getRequest(request).then(result => { // if use function, (this) scope will change. Use (=>) function instead
 				let creative = JSON.parse(result.responseText);
@@ -217,6 +217,7 @@ class Creative {
 				this._width = creative.width;
 				this._height = creative.height;
 				this._didMarkUpLoaded = "loaded";
+
 				this.setType(this._markup).then(result => {
 					resolve(true);
 				}).catch(error => {
@@ -226,8 +227,8 @@ class Creative {
 			}).catch(error => {
 				console.log(error);
 				this._didMarkUpLoaded = "failed";
+				console.log(`[Error] Failed to load creative markup from MoPub: ${this._bidderId} ${this._creativeId}`);
 				reject(false);
-				console.log(`[Error] Failed to load creative markup from MoPub: ${error.responseText} ${this._bidderId} ${this._creativeId}`);
 			});
 		});
 	}

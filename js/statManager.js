@@ -16,19 +16,19 @@ var statManager = (function(global) {
 			case "total":
 				totalNumberOfCreatives += number;
 				$("#number_of_creatives_stat").html(totalNumberOfCreatives);
-				$(".ui.progress").progress("set active");
-				$(".ui.progress").progress("set total", totalNumberOfCreatives);
+				// $(".ui.progress").progress("set active");
+				// $(".ui.progress").progress("set total", totalNumberOfCreatives);
 				break;
 			case "success":
 				successNumberOfCreatives += number;
 				$("#number_of_crt_loaded_stat").html(successNumberOfCreatives);
-				$(".ui.progress").progress('increment', number);
+				// $(".ui.progress").progress('increment', number);
 				break;
 			case "fail":
 				failNumberOfCreatives += number;
 				$("#number_of_crt_failed").html(failNumberOfCreatives);
 				$("#number_of_crt_failed_stat").html(failNumberOfCreatives);
-				$(".ui.progress").progress('increment', number);
+				// $(".ui.progress").progress('increment', number);
 				if (totalNumberOfCreatives == failNumberOfCreatives) notifyManager.error(NO_SERVER_RUNNING);
 				break;
 			case "vast":
@@ -73,9 +73,9 @@ var statManager = (function(global) {
 		$("#number_of_crt_loaded_stat").html("0");
 		$("#number_of_crt_failed_stat").html("0");
 
-		$(".ui.progress").progress("reset");
-		$(".ui.progress").progress("remove active");
-		$(".ui.progress").progress("remove success");
+		// $(".ui.progress").progress("reset");
+		// $(".ui.progress").progress("remove active");
+		// $(".ui.progress").progress("remove success");
 	}
  
   return {

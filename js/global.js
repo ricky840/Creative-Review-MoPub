@@ -11,11 +11,6 @@ const MRAID_CDN = "https://d2al1opqne3nsh.cloudfront.net/js/mraid.js";
 // MoAnalytics creative id + bidder id column delimeter
 const DELIMETER = "-----";
 
-// const HEROKU_BASE = "https://mopub-preview-ad.herokuapp.com";
-// const HEROKU_API_URL = "/api/render?";
-// const HEROKU_OPTIONS = "output=screenshot&waitFor=5000&viewport.width=320&viewport.height=50&screenshot.type=jpeg&screenshot.quality=10";
-const HEROKU_API_KEY = "062da44af48b4dcebb03a6dbf8768e00";
-
 const SERVER_PORT = "9000";
 const SERVER_API_URL = "/api/render?";
 const SERVER_FIXED_OPTIONS = [
@@ -45,10 +40,16 @@ const SHARDING_DOMAINS = [
 	"http://find-creative-7.datswatsup.com",
 	"http://find-creative-8.datswatsup.com",
 	"http://find-creative-9.datswatsup.com",
-	"http://find-creative-10.datswatsup.com"
+	"http://find-creative-10.datswatsup.com",
+	"http://find-creative-11.datswatsup.com",
+	"http://find-creative-12.datswatsup.com",
+	"http://find-creative-13.datswatsup.com",
+	"http://find-creative-14.datswatsup.com",
+	"http://find-creative-15.datswatsup.com",
+	"http://find-creative-16.datswatsup.com"
 ];
 
-var NumberOfShardingDomain = 3; // Default 3
+var NumberOfShardingDomain = 6; // Default 3
 
 var SkipOffset = 50; // default 3;
 

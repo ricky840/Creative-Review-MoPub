@@ -227,7 +227,6 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     }
 
     if (!hasCsrfToken) {
-			console.log(sessionHandler.getSession());
       headers.push({
         name: "x-csrftoken",
         value: sessionHandler.getSession().csrfToken

@@ -2,7 +2,7 @@ var vastContainer = (function(global) {
 	"use strict";
 
 	function attach(videoUrl) {
-		const vast = `
+		const vastMarkUp = `
 		<!DOCTYPE html>
 		<html>
 			<head>
@@ -23,7 +23,7 @@ var vastContainer = (function(global) {
 			<body style="margin: 0; padding: 0;">
 			<div id="wrapper">
 				<video width="320" height="480" id="vast-video" controls autoplay muted>
-					<source id="sourceUrl">
+					<source id="sourceUrl" src="${videoUrl}">
 				</video>
 				<div id="overlay" class="overlay" style="display: none;">
 					<span id="error-msg" style="margin-top: 50%; display: block;"></span>
@@ -51,12 +51,8 @@ var vastContainer = (function(global) {
 			</script>
 			</body>
 		</html>`;
-		// console.log(videoUrl);
-		let parser = new DOMParser();
-		let htmlDoc = parser.parseFromString($.trim(vast), 'text/html');
-		htmlDoc.getElementById("sourceUrl").src = videoUrl;
-		let markup = htmlDoc.documentElement.outerHTML;
-		return markup;
+		
+		return vastMarkUp;
 	}
  
   return {

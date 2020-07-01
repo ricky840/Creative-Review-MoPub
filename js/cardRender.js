@@ -3,13 +3,16 @@ var cardRender = (function(global) {
 
 	function createCardWithElement(creative, status) {
 		let img = $("<img/>");
-		img.attr("loading", "lazy");
+		// img.attr("loading", "lazy");
 
 		if (status == "success") {
 			img.attr("src", creative.getBase64Img());
 		} else {
 			img.attr("src", FAIL_IMG);
 		} 
+
+		// temp
+		return img;
 
 		// let parser = new DOMParser();
 		// let creativeHtml = parser.parseFromString(htmlFactory.getCardHtml(), 'text/html');
@@ -75,12 +78,12 @@ var cardRender = (function(global) {
 	}
 
 	function removeAllCards() {
-		$(".ui.cards.banner-cards").html("");
-		$(".ui.cards.vast-cards").html("");
-		$(".ui.cards.vast-cards").html("");
-		$(".ui.cards.native-cards").html("");
-		$(".ui.cards.html-cards").html("");
-		$(".ui.cards.failed-cards").html("");
+		$(".ui.cards.banner-cards").empty();
+		$(".ui.cards.vast-cards").empty();
+		$(".ui.cards.vast-cards").empty();
+		$(".ui.cards.native-cards").empty();
+		$(".ui.cards.html-cards").empty();
+		$(".ui.cards.failed-cards").empty();
 	}
 
   return {

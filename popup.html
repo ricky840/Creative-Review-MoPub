@@ -108,7 +108,7 @@
 										<option value="native">Native</option>
 									</select>
 							</div>
-							<div class="ui button ad-submit mopub-button-color mopub-button-radius">Load</div>
+							<div class="ui button ad-submit mopub-button-color mopub-button-radius" id="ad-load-btn">Load</div>
 						</form>
 
 					</div> <!-- Column Ends -->
@@ -125,8 +125,8 @@
 											<div class="default text"></div>
 											<div class="menu">
 													<div class="item" data-value="10">10</div>
-													<div class="item" data-value="20">20 (default)</div>
-													<div class="item" data-value="30">30</div>
+													<div class="item" data-value="20">20</div>
+													<div class="item" data-value="30">30 (default)</div>
 													<div class="item" data-value="40">40</div>
 													<div class="item" data-value="50">50</div>
 													<div class="item" data-value="60">60</div>
@@ -184,20 +184,28 @@
 										<input type="text" name="port_num" placeholder="9000 (default)" value="9000">
 									</div>
 									<div class="field">
-										<label>Domain Sharding</label>
+										<label>Parallel Processing</label>
 										<div class="ui selection domain-sharding-dropdown dropdown">
 											<input type="hidden" name="domain_sharding">
 											<i class="dropdown icon"></i>
 											<div class="default text"></div>
 											<div class="menu">
-												<div class="item" data-value="1">6 req/batch</div>
-												<div class="item" data-value="2">12 req/batch</div>
-												<div class="item" data-value="3">18 req/batch (default)</div>
-												<div class="item" data-value="4">24 req/batch</div>
-												<div class="item" data-value="5">30 req/batch</div>
-												<div class="item" data-value="6">36 req/batch</div>
-												<div class="item" data-value="7">42 req/batch</div>
-												<div class="item" data-value="8">48 req/batch</div>
+												<div class="item" data-value="1">6 creatives</div>
+												<div class="item" data-value="2">12 creatives</div>
+												<div class="item" data-value="3">18 creatives</div>
+												<div class="item" data-value="4">24 creatives</div>
+												<div class="item" data-value="5">30 creatives</div>
+												<div class="item" data-value="6">36 creatives (default)</div>
+												<div class="item" data-value="7">42 creatives</div>
+												<div class="item" data-value="8">48 creatives</div>
+												<div class="item" data-value="9">54 creatives</div>
+												<div class="item" data-value="10">60 creatives</div>
+												<div class="item" data-value="11">66 creatives</div>
+												<div class="item" data-value="12">72 creatives</div>
+												<div class="item" data-value="13">78 creatives</div>
+												<div class="item" data-value="14">84 creatives</div>
+												<div class="item" data-value="15">90 creatives</div>
+												<div class="item" data-value="16">96 creatives</div>
 											</div>
 										</div>
 									</div>
@@ -450,13 +458,13 @@
 			</div>
 		</div>
 
-		<script type="text/javascript" src="lib/jquery-3.4.1.min.js"></script>
-		<script type="text/javascript" src="lib/semantic.min.js"></script>
+		<script type="text/javascript" src="lib/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" src="lib/semantic.js"></script>
 		<script type="text/javascript" src="lib/lodash.js"></script>
 		<script type="text/javascript" src="lib/calendar.min.js"></script>
 		<script type="text/javascript" src="lib/http.js"></script>
 		<script type="text/javascript" src="lib/papaparse.min.js"></script>
-		<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+		<script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 
     <script type="text/javascript" src="js/global.js"></script>
     <script type="text/javascript" src="js/helpers.js"></script>

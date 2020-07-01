@@ -62,6 +62,10 @@ var csvManager = (function(global) {
 		Papa.parse(file, {
 			config: { comments: true, skipEmptyLines: true },
 			complete: function(results) {
+
+				console.log("parse result");
+				console.log(results);
+
 				let titleRow = results.data[0];
 				let validateResult = validateFormat(titleRow);
 
@@ -76,10 +80,14 @@ var csvManager = (function(global) {
 					let creativeIdsAndBidderIds = process(validateResult.index, results.data);
 					if (creativeIdsAndBidderIds.length > 0) {
 						uploadedCreatives = creativeIdsAndBidderIds;
+						console.log("uploadedCreatives 1");
+						console.log(uploadedCreatives);
 						callback(true);
+						return;
 					} else {
 						console.log("Uploaded file does not have any valid ids");
 						callback(false);
+						return;
 					}
 				}
 
@@ -98,10 +106,14 @@ var csvManager = (function(global) {
 
 					if (creativeIdsAndBidderIds.length > 0) {
 						uploadedCreatives = creativeIdsAndBidderIds;
+						console.log("uploadedCreatives 2");
+						console.log(uploadedCreatives);
 						callback(true);
+						return;
 					} else {
 						console.log("Uploaded file does not have any valid ids");
 						callback(false);
+						return;
 					}
 				}
 			}

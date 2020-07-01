@@ -92,7 +92,7 @@ var moPubAPI = (function(global) {
 	}
 
   function getCreativeForAdUnit(adunit) {
-
+		// yet implemented
   }
 
   return {

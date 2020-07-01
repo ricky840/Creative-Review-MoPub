@@ -15,31 +15,27 @@ $(document).ready(function() {
 	document.title += ` v${chrome.runtime.getManifest().version}`;
 
 	// Progress Bar
-	$('.ui.progress').progress({
-		showActivity: false,
-		onChange: function(percent, value, total) {
-			if (value > 0 && value != total) {
-				$(this).progress("set label", "Processed {value} / {total}");
-				subBtnStatus("in-progress");
-			} else if (value == 0) {
-				$(this).progress("set label", " ");
-				subBtnStatus("reset");
-			} else if (value == total) {
-				$(this).progress("set label", " ");
-				subBtnStatus("reset");
-			}
-		},
-		onSuccess: function(total) {
-			$(this).progress("set label", "Completed");
-			subBtnStatus("reset");
-		},
-		onActive: function(value, total) {
-			if (value == 0 || Number.isNaN(value)) {
-				$(this).progress("set label", `Waiting for the first batch..`);
-				subBtnStatus("in-progress");
-			}
-		}
-	});
+	// $('.ui.progress').progress({
+	// 	showActivity: false,
+	// 	onChange: function(percent, value, total) {
+	// 		if (value > 0 && value != total) {
+	// 			$(this).progress("set label", "Processed {value} / {total}");
+	// 			subBtnStatus("in-progress");
+	// 		} else if (value == 0) {
+	// 			$(this).progress("set label", " ");
+	// 		}
+	// 	},
+	// 	onSuccess: function(total) {
+	// 		$(this).progress("set label", "Completed");
+	// 		subBtnStatus("reset");
+	// 	},
+	// 	onActive: function(value, total) {
+	// 		if (value == 0 || Number.isNaN(value)) {
+	// 			$(this).progress("set label", `Waiting for the first batch..`);
+	// 			subBtnStatus("in-progress");
+	// 		}
+	// 	}
+	// });
 
 	// Tab menu
 	$('.tab-menu .item').tab();
@@ -76,26 +72,32 @@ $(document).ready(function() {
 
 	// File upload event
 	$('input[type="file"]').on('change', function() {
-		$(".upload-loader").addClass("active");
+
+		console.log("file change..");
+		// $(".upload-loader").addClass("active");
 		let file = $(this).prop('files')[0];
 		if (file == undefined) return;
 
+		console.log(file);
+
 		csvManager.parseFile(file, (result) => {
+			console.log("parsed");
+
 			if (!result) {
 				$(this).val("");	
 				csvManager.reset();
 				notifyManager.error(ERROR_FILE_IS_NOT_VALID);			
 			}
-			$(".upload-loader").removeClass("active");
+			// $(".upload-loader").removeClass("active");
 		});
 	});
 
 	// Init vast player
-	vastPlayer.init();
-
-	// Init modals
-	$('.ui.modal.non-video').modal();
-	$('.ui.modal.video').modal();
+	// vastPlayer.init();
+  //
+	// // Init modals
+	// $('.ui.modal.non-video').modal();
+	// $('.ui.modal.video').modal();
 
 	// When click a card
 	$(".ui.cards").on("click", ".ad-card", function(event) {
@@ -184,7 +186,7 @@ $(document).ready(function() {
 	});
 
 	// Dropdowns Inits
-	$(".img-quality-dropdown").dropdown('set selected', "20");
+	$(".img-quality-dropdown").dropdown('set selected', "30");
 	$(".img-quality-dropdown").dropdown('save defaults');
 	$(".render-delay-dropdown").dropdown('set selected', "5000");
 	$(".render-delay-dropdown").dropdown('save defaults');
@@ -194,12 +196,12 @@ $(document).ready(function() {
 	$(".creative-format-dropdown").dropdown('save defaults');
 	$(".skip-offset-dropdown").dropdown('set selected', "50");
 	$(".skip-offset-dropdown").dropdown('save defaults');
-	$(".domain-sharding-dropdown").dropdown('set selected', "3");
+	$(".domain-sharding-dropdown").dropdown('set selected', "6");
 	$(".domain-sharding-dropdown").dropdown('save defaults');
 
 	// Submit button click
-	$(".ad-submit").click(function() {
-		subBtnStatus("loading");
+	$("#ad-load-btn").click(function(event) {
+		// subBtnStatus("loading");
 		resetScreen();
 
 		// Get date
@@ -363,7 +365,7 @@ function saveCreatives(creatives) {
 function resetScreen() {
 	cardRender.removeAllCards();
 	statManager.reset();
-	notifyManager.clear();
+  notifyManager.clear();
 	$('input[type="file"]').val("");
 }
 
@@ -373,15 +375,17 @@ function zeroCreative() {
 }
 
 function subBtnStatus(status) {
-	const button = $(".ui.button.ad-submit");
+	let button = $("#ad-load-btn");
 	switch(status) {
 		case "loading":
+			if (button.hasClass("disabled")) return;
 			button.html("Loading..").addClass("disabled");
 			break;
 		case "reset":
 			button.html("Load").removeClass("disabled");
 			break;
 		case "in-progress":
+			if (button.hasClass("disabled")) return;
 			button.html("Processing..").addClass("disabled");
 			break;
 		default:
