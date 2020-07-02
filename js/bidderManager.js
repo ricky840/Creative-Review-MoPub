@@ -1,7 +1,10 @@
 var bidderManager = (function(global) {
 	"use strict";
 
-	let bidderList;
+	let bidderList = [];
+	let bidderListActive = [];
+	let bidderListKeyById = {};
+	let bidderListKeyByName = {};
 
 	function fetchBidderList() {
 		return new Promise(function(resolve, reject) { 
@@ -10,44 +13,69 @@ var bidderManager = (function(global) {
 		  	let list = JSON.parse(result.responseText);
 				if (list.length > 0) {
 					bidderList = list;
-					console.log("Fetch bidder list successfully");
-					resolve(bidderList);
+					console.log("Bidder list fetched successfully");
+					(saveBidderList(bidderList)) ? resolve(true) : reject(false);
 				} else {
-					reject([]);
+					reject(false);
 				}
 			}).catch(function(error) {
-				console.log("Error while fetching bidder list");
-				reject([]);
+				console.log(`Error while fetching bidder list: ${error}`);
+				reject(false);
 			});
 		});
 	}
 
-	function status() {
-		return (_.isUndefined(bidderList)) ? false : true;
-	}
-	
-	function getBidderId(bidderName) {
+	function saveBidderList(bidderList) {
 		for (let i=0; i < bidderList.length; i++) {
-			if (bidderName == bidderList[i].name)	{
-				return bidderList[i].id;	
-			}
+			let bidder = bidderList[i];
+			bidderListKeyById[bidder.id] = bidder;
+			bidderListKeyByName[bidder.name] = bidder;
+			if (bidder.active) bidderListActive.push(bidder);
 		}
-		return false;
+		return true;
 	}
 
-	function getBidderName(bidderId) {
+	function getBidderByName(name) {
+		let result = (bidderListKeyByName[name] == undefined) ? {} : bidderListKeyByName[name];
+		return result;
+	}
+
+	function getBidderByKey(key) {
+		let result = (bidderListKeyById[key] == undefined) ? {} : bidderListKeyById[key];
+		return result;
+	}
+
+	function getBidderList() {
+		return bidderList;
+	}
+
+	function getActiveBidderList() {
+		return bidderListActive;
+	}
+
+	function getBidderListForDropDown() {
+		let bidderList = getActiveBidderList();
+		let list = [];
 		for (let i=0; i < bidderList.length; i++) {
-			if (bidderId == bidderList[i].id)	{
-				return bidderList[i].name;	
-			}
+			let status = (bidderList[i].active == true) ? "bidderstatusactive" : "bidderstatusinactive"
+			let name = `<biddername>${bidderList[i].name}</biddername>`;
+			name += `<bidderid>${bidderList[i].id}</bidderid>`;
+			name += `<${status} class="right floated"></${status}>`;
+			let item = {
+				name: name,
+				value: bidderList[i].id
+			};
+			list.push(item);
 		}
-		return false;
+		return list;
 	}
  
   return {
 		fetchBidderList: fetchBidderList,
-		status: status,
-		getBidderId: getBidderId,
-		getBidderName: getBidderName
+		getBidderByName: getBidderByName,
+		getBidderByKey: getBidderByKey,
+		getBidderList: getBidderList,
+		getActiveBidderList: getActiveBidderList,
+		getBidderListForDropDown: getBidderListForDropDown
   }
 })(this);

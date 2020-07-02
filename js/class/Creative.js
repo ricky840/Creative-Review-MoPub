@@ -2,6 +2,7 @@ class Creative {
 	constructor(creativeId, bidderId) {
 		this._creativeId = creativeId;
 		this._bidderId = bidderId;
+		this._bidderName = this.fetchBidderNameById(bidderId);
 		this._type = ""; // banner(height 50 only) | vast | vast_tag | html | native
 		this._markup = "";
 		this._markUpWithContainer = "";
@@ -23,6 +24,7 @@ class Creative {
 		return {
 			creativeId: this._creativeId,
 			bidderId: this._bidderId,
+			bidderName: this._bidderName,
 			type: this._type,
 			markup: this._markup,
 			markUpWithContainer: this._markUpWithContainer,
@@ -43,6 +45,11 @@ class Creative {
 		this._clicks = creativeObj.clicks;
 	}
 
+	fetchBidderNameById(bidderId) {
+		let bidder = bidderManager.getBidderByKey(bidderId);
+		return bidder.name;
+	}
+
 	loadScreenShot(requestUrl) {
 		return new Promise((resolve, reject) => {
 			// To be safe
@@ -54,8 +61,7 @@ class Creative {
 				url: requestUrl,
 				data: this._markUpWithContainer,
 				headers: { 
-					"Content-Type": "text/html",
-					"X-API-Key": HEROKU_API_KEY 
+					"Content-Type": "text/html"
 				}
 			};
 			this._didBase64ImgLoaded = "loading";
@@ -243,6 +249,7 @@ class Creative {
 	// Getters
 	getCreativeId() { return this._creativeId; }
 	getBidderId() { return this._bidderId; }
+	getBidderName() { return this._bidderName; }
 	getType() { return this._type; }
 	getMarkUp() { return this._markup; }
 	getMarkUpWithContainer() { return this._markUpWithContainer; }

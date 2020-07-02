@@ -62,9 +62,7 @@ var csvManager = (function(global) {
 		Papa.parse(file, {
 			config: { comments: true, skipEmptyLines: true },
 			complete: function(results) {
-
-				console.log("parse result");
-				console.log(results);
+				console.log("Uploaded file parsed");
 
 				let titleRow = results.data[0];
 				let validateResult = validateFormat(titleRow);
@@ -80,8 +78,6 @@ var csvManager = (function(global) {
 					let creativeIdsAndBidderIds = process(validateResult.index, results.data);
 					if (creativeIdsAndBidderIds.length > 0) {
 						uploadedCreatives = creativeIdsAndBidderIds;
-						console.log("uploadedCreatives 1");
-						console.log(uploadedCreatives);
 						callback(true);
 						return;
 					} else {
@@ -93,12 +89,6 @@ var csvManager = (function(global) {
 
 				// When CSV includes Creative ID and Bidder Name column
 				if (validateResult.type == 2) {
-					// Check if bidderList is available
-					if (!bidderManager.status()) {
-						callback(false);
-						return;
-					}
-
 					let creativeIdsAndBidderIds = processWithIdAndName(
 						validateResult.creative_id_index,
 						validateResult.bidder_name_index, 
@@ -106,8 +96,6 @@ var csvManager = (function(global) {
 
 					if (creativeIdsAndBidderIds.length > 0) {
 						uploadedCreatives = creativeIdsAndBidderIds;
-						console.log("uploadedCreatives 2");
-						console.log(uploadedCreatives);
 						callback(true);
 						return;
 					} else {
@@ -136,8 +124,10 @@ var csvManager = (function(global) {
 
 			// Find bidder Id
 			let bidderName = eachRowFiltered[bidderNameIndex].trim();
-			let bidderId = bidderManager.getBidderId(bidderName);	
+			let bidder = bidderManager.getBidderByName(bidderName);
+			let bidderId = (bidder) ? bidder.id : undefined;
 
+			// Save only if bidder Id is available
 			if (bidderId) {
 				targetCreatives.push({
 					creativeId: creativeId,

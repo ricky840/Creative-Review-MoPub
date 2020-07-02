@@ -34,15 +34,20 @@
 
 			<!-- Grid -->
 			<div class="ui grid">
+				<div class="row" style="padding-bottom: 0px;">
+					<div class="sixteen wide column">
+						<div class="save-settings-btn">Save Settings</div>
+					</div>
+				</div>
 
-				<div class="row">
+				<div class="row" style="padding-top: 0px;">
+					<div class="ui inverted dimmer init-loader active">
+						<div class="ui text loader">Loading..</div>
+					</div>
+
 					<div class="eight wide column">
-						<div class="ui inverted dimmer upload-loader">
-							<div class="ui text loader">Uploading..</div>
-						</div>
 
 						<form class="ui small form ad-form">
-
 							<div class="required field">
 								<label>Fetch Creatives from</label>
 								<div class="ui selection fetch-source-dropdown dropdown">
@@ -77,16 +82,21 @@
 								</div>
 							</div>
 
-							<div class="two fields crt-bid-id-field fetch-source" style="display: none;">
-								<div class="required field field-creative-id">
+							<div class="fields crt-bid-id-field fetch-source" style="display: none;">
+								<div class="required six wide field field-creative-id">
 									<label>Creative Id</label>
 									<input type="text" name="creative_id" placeholder="">
 								</div>
-								<div class="required field field-bidder-id">
-									<label>Bidder Id</label>
-									<input type="text" name="bidder_id" placeholder="">
+								<div class="required ten wide field field-bidder-id">
+									<label>Bidder (DSP)</label>
+									<div class="ui fluid search selection dropdown bidder-list">
+										<input type="hidden" name="bidder_id">
+										<i class="dropdown icon"></i>
+										<div class="default text">Select Bidder(DSP)</div>
+										<div class="menu"></div>
+									</div>
 								</div>
-							</div>	
+							</div>
 
 							<div class="required field field-mpx-line-item fetch-source" style="display: none;">
 								<label>Marketplace Line Item Id</label>
@@ -108,7 +118,7 @@
 										<option value="native">Native</option>
 									</select>
 							</div>
-							<div class="ui button ad-submit mopub-button-color mopub-button-radius" id="ad-load-btn">Load</div>
+							<div class="ui button ad-submit mopub-button-color mopub-button-radius disabled" id="ad-load-btn">Load</div>
 						</form>
 
 					</div> <!-- Column Ends -->
@@ -181,7 +191,7 @@
 									</div>
 									<div class="field">
 										<label>Port</label>
-										<input type="text" name="port_num" placeholder="9000 (default)" value="9000">
+										<input type="text" class="port-number" name="port_num">
 									</div>
 									<div class="field">
 										<label>Parallel Processing</label>
@@ -193,9 +203,9 @@
 												<div class="item" data-value="1">6 creatives</div>
 												<div class="item" data-value="2">12 creatives</div>
 												<div class="item" data-value="3">18 creatives</div>
-												<div class="item" data-value="4">24 creatives</div>
+												<div class="item" data-value="4">24 creatives (default)</div>
 												<div class="item" data-value="5">30 creatives</div>
-												<div class="item" data-value="6">36 creatives (default)</div>
+												<div class="item" data-value="6">36 creatives</div>
 												<div class="item" data-value="7">42 creatives</div>
 												<div class="item" data-value="8">48 creatives</div>
 												<div class="item" data-value="9">54 creatives</div>
@@ -232,7 +242,7 @@
 								</div>
 								<div class="ui hidden divider" style="margin-top: 0.5em; margin-bottom: 0.5em;"></div>
 								<div class="row">
-									<div class="ui blue progress screenshot-progress-bar">
+									<div class="ui blue small progress screenshot-progress-bar">
 										<div class="bar">
 											<div class="progress"></div>
 										</div>
@@ -250,6 +260,7 @@
 		<div class="ui divider"></div>
 
 		<div class="ui container" style="width: 95%;">
+			<div class="ui mopub-button-color mopub-button-radius download-all-btn button small disabled">Download All</div>
 
 			<div class="ui top attached tabular menu tab-menu">
 				<a class="item active" data-tab="banner">
@@ -303,8 +314,15 @@
 						<img src="" class="ui centered bordered image modal-crt-img">
 					</div>
 					<div class="row">
-						<div class="ten wide column">
+						<div class="nine wide column">
 							<div class="ui divided selection list">
+								<a class="item">
+									<p>Creative Infomation</p>
+								</a>
+								<a class="item">
+									<div class="ui horizontal label">Bidder Name</div>
+									<span class="modal-crt-bidder-name"></span>
+								</a>
 								<a class="item">
 									<div class="ui horizontal label">Bidder Id</div>
 									<span class="modal-crt-bidder-id"></span>
@@ -323,8 +341,11 @@
 								</a>
 							</div>
 						</div>
-						<div class="six wide column">
+						<div class="seven wide column">
 							<div class="ui divided selection list">
+	 							<a class="item">
+									<p>Only available when fetched from MPX tab or line item</p>
+								</a>
 	 							<a class="item">
 									<div class="ui horizontal label">Impression</div>
 									<span class="modal-crt-imp"></span>
@@ -355,6 +376,7 @@
 			<div class="actions">
 				<div class="ui red block mopub-button-radius button left floated basic">Block across all apps</div>
 				<div class="ui button left floated block-status-btn"></div>
+				<div class="ui blue basic mopub-button-radius button download-mopub-btn" data-tooltip="Download with Container">Download</div>
 				<div class="ui blue basic mopub-button-radius button preview-mopub-btn" data-tooltip="MoPub Internal Only">Preview in MoPub</div>
 				<div class="ui mopub-button-color mopub-button-radius approve button">Close</div>
 			</div>
@@ -401,6 +423,10 @@
 									<p>Creative Infomation</p>
 								</a>
 								<a class="item">
+									<div class="ui horizontal label">Bidder Name</div>
+									<span class="video-modal-crt-bidder-name"></span>
+								</a>
+								<a class="item">
 									<div class="ui horizontal label">Bidder Id</div>
 									<span class="video-modal-crt-bidder-id"></span>
 								</a>
@@ -421,7 +447,7 @@
 						<div class="seven wide column">
 							<div class="ui divided selection list">
 	 							<a class="item">
-									<p>Only available if fetched from MPX tab or line item</p>
+									<p>Only available when fetched from MPX tab or line item</p>
 								</a>
 	 							<a class="item">
 									<div class="ui horizontal label">Impression</div>
@@ -453,13 +479,14 @@
 			<div class="actions">
 				<div class="ui red block mopub-button-radius button left floated basic">Block across all apps</div>
 				<div class="ui button left floated block-status-btn"></div>
+				<div class="ui blue basic mopub-button-radius button download-mopub-btn">Download</div>
 				<div class="ui blue basic mopub-button-radius button preview-mopub-btn" data-tooltip="MoPub Internal Only">Preview in MoPub</div>
 				<div class="ui mopub-button-color mopub-button-radius approve button">Close</div>
 			</div>
 		</div>
 
 		<script type="text/javascript" src="lib/jquery-3.5.1.min.js"></script>
-		<script type="text/javascript" src="lib/semantic.js"></script>
+		<script type="text/javascript" src="lib/semantic.min.js"></script>
 		<script type="text/javascript" src="lib/lodash.js"></script>
 		<script type="text/javascript" src="lib/calendar.min.js"></script>
 		<script type="text/javascript" src="lib/http.js"></script>
@@ -469,6 +496,7 @@
     <script type="text/javascript" src="js/global.js"></script>
     <script type="text/javascript" src="js/helpers.js"></script>
 
+    <script type="text/javascript" src="js/bidderManager.js"></script>
     <script type="text/javascript" src="js/domainManager.js"></script>
     <script type="text/javascript" src="js/statManager.js"></script>
     <script type="text/javascript" src="js/vastContainer.js"></script>
@@ -478,7 +506,6 @@
     <script type="text/javascript" src="js/notifyManager.js"></script>
     <script type="text/javascript" src="js/htmlFactory.js"></script>
     <script type="text/javascript" src="js/formValidator.js"></script>
-    <script type="text/javascript" src="js/bidderManager.js"></script>
     <script type="text/javascript" src="js/serverManager.js"></script>
     <script type="text/javascript" src="js/cardRender.js"></script>
     <script type="text/javascript" src="js/csvManager.js"></script>
@@ -487,5 +514,6 @@
 
     <script type="text/javascript" src="js/moPubAPI.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
+    <script type="text/javascript" src="js/popupEvents.js"></script>
 	</body>
 </html>

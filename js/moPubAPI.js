@@ -38,7 +38,39 @@ var moPubAPI = (function(global) {
 				}
 				// Don't promise all to be successful
 				Promise.allSettled(promises).then(response => {
-					resolve(creatives);
+					// Do nothing
+				}).then(function() {
+					// Try just one more time
+					let failedCreatives = [];
+					for (let i=0; i < creatives.length; i++) {
+						if (creatives[i].getDidMarkUpLoaded() != "loaded") {
+							failedCreatives.push(creatives[i]);
+						}
+					}
+					console.log(`Number of markup load failed creatives: ${failedCreatives.length}`);
+
+					if (creatives.length == failedCreatives.length) {
+						// This is all creatives were failed, just return
+						resolve(creatives);
+						return;
+					}
+
+					if (failedCreatives.length == 0) {
+						// All were successful
+						console.log("All creative's markup loaded successfully");
+						resolve(creatives);
+						return;
+					}
+
+					// Try one more time
+					console.log("Trying to load creative markup again");
+					let retryPromises = [];
+					for (let i=0; i < failedCreatives.length; i++) {
+						retryPromises.push(failedCreatives[i].loadMarkUp());
+					}
+					Promise.allSettled(retryPromises).then(response => {
+						resolve(creatives);
+					});
 				});
 			}).catch(function(error) {
 				console.log(`[Error] Failed to load creative list from MoPub: ${error}`);
@@ -87,7 +119,39 @@ var moPubAPI = (function(global) {
 		}
 		// Don't promise all to be successful
 		Promise.allSettled(promises).then(response => {
-			callback(creatives);
+			// 1st
+		}).then(function() {
+			// Try just one more time
+			let failedCreatives = [];
+			for (let i=0; i < creatives.length; i++) {
+				if (creatives[i].getDidMarkUpLoaded() != "loaded") {
+					failedCreatives.push(creatives[i]);
+				}
+			}
+			console.log(`Number of markup load failed creatives: ${failedCreatives.length}`);
+
+			if (bulkData.length == failedCreatives.length) {
+				// This is all creatives were failed, just return
+				callback(creatives);
+				return;
+			}
+
+			if (failedCreatives.length == 0) {
+				// All were successful
+				console.log("All creative's markup loaded successfully");
+				callback(creatives);
+				return;
+			}
+
+			// Try one more time
+			console.log("Trying to load creative markup again");
+			let retryPromises = [];
+			for (let i=0; i < failedCreatives.length; i++) {
+				retryPromises.push(failedCreatives[i].loadMarkUp());
+			}
+			Promise.allSettled(retryPromises).then(response => {
+				callback(creatives);
+			});
 		});
 	}
 

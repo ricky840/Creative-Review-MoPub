@@ -1,6 +1,19 @@
 var serverManager = (function(global) {
 	"use strict";
 
+	function healthCheck(portNumber) {
+		return new Promise(function(resolve, reject) {
+			let domain = domainManager.getDomain();
+			let url = domain + ":" + portNumber + SERVER_HEALTH_CHECK_URL;
+			let request = { url: url };
+			http.getRequest(request).then(function(result) {
+				resolve(true);
+			}).catch(function(error) {
+				reject(false);
+			});
+		});
+	}
+
 	function createServerUrl(creative, options) {
 		let newOptions = JSON.parse(JSON.stringify(options));
 
@@ -21,6 +34,7 @@ var serverManager = (function(global) {
 	}
 
   return {
-		createServerUrl: createServerUrl
+		createServerUrl: createServerUrl,
+		healthCheck: healthCheck
   }
 })(this);

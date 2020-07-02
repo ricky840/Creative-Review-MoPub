@@ -2,56 +2,53 @@ var cardRender = (function(global) {
 	"use strict";
 
 	function createCardWithElement(creative, status) {
-		let img = $("<img/>");
-		// img.attr("loading", "lazy");
 
-		if (status == "success") {
-			img.attr("src", creative.getBase64Img());
-		} else {
-			img.attr("src", FAIL_IMG);
-		} 
+		let imgSrc = (status == "success") ? creative.getBase64Img() : FAIL_IMG;
 
-		// temp
-		return img;
-
-		// let parser = new DOMParser();
-		// let creativeHtml = parser.parseFromString(htmlFactory.getCardHtml(), 'text/html');
-		// console.log(creativeHtml);
-		let creativeHtml = $.parseHTML(htmlFactory.getCardHtml());
-		$(creativeHtml).find(".ad-image").html(img);
-		$(creativeHtml).find(".card-ad-imp").html(creative.getImpressions());
-		$(creativeHtml).find(".card-ad-click").html(creative.getClicks());
-		$(creativeHtml).find(".card-ad-rev").html(creative.getPublisherRevenue().toFixed(6));
-		$(creativeHtml).find(".card-ad-adomain").html(creative.getAdomain());
-		$(creativeHtml).find(".card-ad-creative-id").html(creative.getCreativeId());
-		$(creativeHtml).find(".card-ad-bidder-id").html(creative.getBidderId());
-
+		let blockStatusClass = "allowed-crt";
 		if (creative.getBlocked() === undefined) {
-			$(creativeHtml).find(".extra.content").addClass("noinfo-crt"); // no info
+			blockStatusClass = "noinfo-crt";
 		} else if (creative.getBlocked() === true) {
-			$(creativeHtml).find(".extra.content").addClass("blocked-crt"); // blocked
+			blockStatusClass = "blocked-crt";
 		} else if (creative.getBlocked() === false) {
-			$(creativeHtml).find(".extra.content").addClass("allowed-crt"); // allowed
+			blockStatusClass = "allowed-crt";
 		}
 
+		let type = "";
 		switch (creative.getType()) {
 			case "banner":
-				$(creativeHtml).find(".card-ad-size").html("BANNER");
+				type = "BANNER";
 				break;
 			case "vast":
-				$(creativeHtml).find(".card-ad-size").html("VAST XML");
+				type = "VAST XML";
 				break;
 			case "vast_tag":
-				$(creativeHtml).find(".card-ad-size").html("VAST TAG");
+				type = "VAST TAG";
 				break;
 			case "native":
-				$(creativeHtml).find(".card-ad-size").html("NATIVE");
+				type = "NATIVE";
 				break;
 			case "html":
-				$(creativeHtml).find(".card-ad-size").html(`${creative.getWidth()}x${creative.getHeight()}`);
+				type = `${creative.getWidth()}x${creative.getHeight()}`;
 				break;
 		}
-		return creativeHtml;
+
+		let cardAssets = {
+			imgSrc: imgSrc,
+			impression: creative.getImpressions(),
+			click: creative.getClicks(),
+			revenue: creative.getPublisherRevenue().toFixed(6),
+			adomain: creative.getAdomain(),
+			creativeId: creative.getCreativeId(),
+			bidderId: creative.getBidderId(),
+			bidderName: creative.getBidderName(),
+			type: type,
+			blockStatusClass: blockStatusClass
+		}
+
+		let cardHtml = htmlFactory.getCardHtml(cardAssets);
+
+		return cardHtml;
 	}
 
 	function attachCard(cardType, cardHtml) {

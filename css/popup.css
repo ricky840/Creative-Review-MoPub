@@ -58,6 +58,12 @@
 .ad-card .card-ad-bidder-id {
 	color: #1da1f2;
 }
+.ad-card .card-ad-bidder-name {
+	color: #801df2;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 0.9em;
+}
 
 /* Block status */
 .allowed-crt {
@@ -154,4 +160,83 @@
 	background: transparent !important;
 	font-weight: normal !important;
 	cursor: auto;
+}
+
+/* For DSP dropdown */
+biddername {
+	font-weight: bold;
+}
+bidderid {
+	color: #1da1f2 !important;
+	margin-left: 10px;
+}
+bidderstatusactive {
+	margin-right: 5px !important;
+  font-size: .6rem;
+  display: inline-block !important;
+  margin: 0.14285714em;
+  background-image: none;
+  text-transform: none;
+  font-weight: 700;
+  border: 0 solid transparent;
+  transition: background .1s ease;
+  background-color: #21ba45!important;
+  border-color: #21ba45!important;
+  color: #fff!important;
+  padding: .5em!important;
+  line-height: 1em;
+  text-align: center;
+  border-radius: 500rem;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  width: .5em;
+  height: .5em;
+  vertical-align: middle !important;
+}
+bidderstatusinactive {
+	margin-right: 5px !important;
+  font-size: .6rem;
+  display: inline-block !important; margin: 0.14285714em;
+  background-image: none;
+  text-transform: none;
+  font-weight: 700;
+  border: 0 solid transparent;
+  transition: background .1s ease;
+  background-color: #767676!important;
+  border-color: #767676!important;
+  color: #fff!important;
+  padding: .5em!important;
+  line-height: 1em;
+  text-align: center;
+  border-radius: 500rem;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  width: .5em;
+  height: .5em;
+  vertical-align: middle !important;
+}
+
+/* save settings button */
+.save-settings-btn {
+	float: right;
+	color: #1da1f2 !important;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+.save-settings-btn:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* load submit button */
+.button.ad-submit {
+	margin-top: 0.9em !important;
+}
+
+/* download all */
+.download-all-btn {
+	position: absolute;
+	right: 3em;
 }

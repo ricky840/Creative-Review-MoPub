@@ -22,6 +22,20 @@ var initStorage = function() {
     if(_.isUndefined(result['creatives'])) {
       chrome.storage.local.set({ creatives: {} });
     }
+
+		// Init settings storage
+    if(_.isUndefined(result['settings'])) {
+			chrome.storage.local.set({ 
+				settings: [
+					{ name: "img_quality", value: "30" },
+					{ name: "render_delay", value: "5000" },
+					{ name: "skip_offset", value: "50" },
+					{ name: "server_mode", value: "localhost" },
+					{ name: "port_num", value: "9000" },
+					{ name: "domain_sharding", value: "4" }
+				] 
+			});
+    }
 	});
 }
 

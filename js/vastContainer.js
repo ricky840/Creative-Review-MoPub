@@ -52,7 +52,7 @@ var vastContainer = (function(global) {
 			</body>
 		</html>`;
 		
-		return vastMarkUp;
+		return $.trim(vastMarkUp);
 	}
  
   return {

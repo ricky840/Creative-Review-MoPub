@@ -5,12 +5,15 @@ const API_GET_LINE_ITEM_CREATIIVE_LIST = "/web-client/api/line-items/dsp-creativ
 const API_GET_USER_LIST = "/web-client/api/users/query";
 const API_BLOCK_CREATIVE = "/web-client/api/account/create-creative-id-blocks";
 const API_DSP_LIST = "/web-client/api/dsps/query";
+const PREVIEW_URL = "https://app.mopub.com/staff/creative-preview?";
 
+// Mraid.js file CDN
 const MRAID_CDN = "https://d2al1opqne3nsh.cloudfront.net/js/mraid.js";
 
 // MoAnalytics creative id + bidder id column delimeter
 const DELIMETER = "-----";
 
+// Server default settings
 const SERVER_PORT = "9000";
 const SERVER_API_URL = "/api/render?";
 const SERVER_FIXED_OPTIONS = [
@@ -19,17 +22,19 @@ const SERVER_FIXED_OPTIONS = [
 	"goto.waitUntil=load",
 	"ignoreHttpsErrors=true"
 ];
+const SERVER_HEALTH_CHECK_URL = "/ok";
 
 // FAIL IMAGE IN CARD
 FAIL_IMG = "img/fail.png";
 
-// TEMP
-NUMBER_OF_CREATIVE_TO_LOAD = 10000;
+// Temporary
+NUMBER_OF_CREATIVE_TO_LOAD = 100000000;
 
 // Default Screen Size
 const DEFAULT_SCREEN_WIDTH = 320;
 const DEFAULT_SCREEN_HEIGHT = 480;
 
+// List of sharding domains
 const SHARDING_DOMAINS = [
 	"http://find-creative-1.datswatsup.com",
 	"http://find-creative-2.datswatsup.com",
@@ -49,14 +54,20 @@ const SHARDING_DOMAINS = [
 	"http://find-creative-16.datswatsup.com"
 ];
 
-var NumberOfShardingDomain = 6; // Default 3
+// Default number of sharding domain
+var NumberOfShardingDomain;
 
-var SkipOffset = 50; // default 3;
+// Default skip offset
+var SkipOffset;
 
+// Vast.datswatusp.com domain
 const VAST_DATSWATSUP_COM = "http://vast.datswatsup.com/";
 
+
+
+// ***********************
 // Notification messages
-// 
+ 
 // When uploaded file is not valid
 const ERROR_FILE_IS_NOT_VALID = {
 	header: "File Invalid Error",
@@ -71,4 +82,14 @@ const ERROR_NO_CREATIVE = {
 const NO_SERVER_RUNNING = {
 	header: "All Creatives Failed",
 	description: "Did you forget to run the server? Please make sure that you chose the right port number :)"
+};
+// When failed to load bidder list
+const ERROR_CANNOT_LOAD_BIDDER_LIST = {
+	header: "Could not download the bidder list",
+	description: "Did you login to MoPub UI? Please login and try again."
+};
+// Server health check failed
+const SERVER_HEALTH_CHECK_FAILED = {
+	header: "Server is not running",
+	description: "Did you forget to start the server? Please start the server and try it again."
 };
