@@ -34,6 +34,12 @@ $('input[type="file"]').on('change', function() {
 
 // When click each card
 $(".ui.cards").on("click", ".ad-card", function(event) {
+	// Block if it is still in loading
+	if (!statManager.isFinished()) {
+		notifyManager.info(STILL_IN_LOADING);
+		return;
+	}
+
 	chrome.storage.local.get("creatives", result => {
 		const savedCreatives = result["creatives"];
 		const clickedCreativeId = $(this).find(".card-ad-creative-id").html();
@@ -84,7 +90,10 @@ $(".ui.cards").on("click", ".ad-card", function(event) {
 				},
 				onHide: function() {
 					vastPlayer.stop();
-				}			
+				},
+				onShow: function () {
+					notifyManager.clearVideoError();
+				}
 			}).modal('show');
 		}
 	});

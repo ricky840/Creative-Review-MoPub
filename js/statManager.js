@@ -9,6 +9,7 @@ var statManager = (function(global) {
 	let nativeCreatives = 0;
 	let bannerCreatives = 0;
 	let htmlCreatives = 0;
+	let isComplete = false;
 
 	function increase(type, number) {
 
@@ -18,6 +19,7 @@ var statManager = (function(global) {
 				$("#number_of_creatives_stat").html(totalNumberOfCreatives);
 				$(".ui.progress").progress("set active");
 				$(".ui.progress").progress("set total", totalNumberOfCreatives);
+				isComplete = false;
 				break;
 			case "success":
 				successNumberOfCreatives += number;
@@ -56,6 +58,7 @@ var statManager = (function(global) {
 		if ((successNumberOfCreatives + failNumberOfCreatives) == totalNumberOfCreatives) {
 			// Complete
 			$(".ui.progress").progress("set success");
+			isComplete = true;
 		}
 	}
 
@@ -68,6 +71,8 @@ var statManager = (function(global) {
 	  nativeCreatives = 0;
 	  bannerCreatives = 0;
 	  htmlCreatives = 0;
+
+		isComplete = false;
 
 		$("#number_of_crt_banner").html("");
 		$("#number_of_crt_html").html("");
@@ -82,9 +87,14 @@ var statManager = (function(global) {
 		$(".ui.progress").progress("remove active");
 		$(".ui.progress").progress("remove success");
 	}
+
+	function isFinished() {
+		return isComplete;
+	}
  
   return {
 		reset: reset,
-		increase: increase
+		increase: increase,
+		isFinished: isFinished
   }
 })(this);

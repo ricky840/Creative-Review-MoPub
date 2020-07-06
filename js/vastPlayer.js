@@ -53,7 +53,7 @@ var vastPlayer = (function(global) {
 		adsManager.addEventListener(google.ima.AdEvent.Type.PAUSED, onAdPaused);
 		showAds();
 
-		$(statusMsg).html("Loaded, showing ad..");
+		$(statusMsg).html("Loaded, trying to show..");
 	}
 
 	function showAds(event) {
@@ -80,7 +80,9 @@ var vastPlayer = (function(global) {
 	// On ad events
 	function onAdError(adErrorEvent) {
 		// Handle the error logging.
-		console.log(adErrorEvent.getError());
+		let error = adErrorEvent.getError();
+		let message = `${error.getErrorCode()} ${error.getType()}: ${error.getMessage()}`;
+		notifyManager.videoError(message);
 
 		let link = `Error - <a href="${VAST_DATSWATSUP_COM}" target="_blank">try again here</a>`;
 		$(statusMsg).html(link);

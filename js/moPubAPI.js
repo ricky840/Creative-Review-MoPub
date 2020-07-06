@@ -1,6 +1,14 @@
 var moPubAPI = (function(global) {
   "use strict";
 
+	function isAdvancedBidder(bidderId) {
+		let bidder = bidderManager.getBidderByKey(bidderId);
+		if (_.isEmpty(bidder)) return false;
+
+		let bidderName = bidder.name.toUpperCase();
+		return (bidderName.includes("ADVANCED_")) ? true : false;
+	}
+
 	function fetchBulkCreatives(request) {
 		return new Promise((resolve, reject) => {
 			http.getRequest(request).then(function(result) {
@@ -14,6 +22,9 @@ var moPubAPI = (function(global) {
 					let creativeId = components.join(":").trim();
 
 					if (!_.isEmpty(creativeId) && !_.isEmpty(bidderId)) {
+
+						if (isAdvancedBidder(bidderId)) continue;	
+
 						let creativeObj = {
 							creativeId: creativeId,
 							bidderId: bidderId,
@@ -81,6 +92,10 @@ var moPubAPI = (function(global) {
 
   function getCreative(bidderId, creativeId, callback) {
 		let creative = new Creative(creativeId, bidderId);
+		if (isAdvancedBidder(bidderId)) {
+			callback([]);
+			return;
+		}
 		creative.loadMarkUp().then(function(result) {
 			callback([creative]);
 		}).catch(function(error) {
@@ -114,6 +129,7 @@ var moPubAPI = (function(global) {
 		let creatives = [];
 		for (let i=0; i < bulkData.length; i++) {
 			let creative = new Creative(bulkData[i].creativeId, bulkData[i].bidderId);
+			if (isAdvancedBidder(bulkData[i].bidderId)) continue;
 			creatives.push(creative);
 			promises.push(creative.loadMarkUp());	
 		}

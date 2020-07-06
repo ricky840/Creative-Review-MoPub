@@ -93,3 +93,9 @@ const SERVER_HEALTH_CHECK_FAILED = {
 	header: "Server is not running",
 	description: "Did you forget to start the server? Please start the server and try it again."
 };
+// Still in loading
+const STILL_IN_LOADING = {
+	header: "Still in loading",
+	description: "Please wait until all creatives are loaded."
+};
+
