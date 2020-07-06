@@ -26,7 +26,7 @@ var htmlFactory = (function(global) {
 					</div>
 				</div>
 			</div>
-			<div class="extra content">
+			<div class="extra content ${cardAssets.blockStatusClass}">
 				<span class="card-ad-size">${cardAssets.type}</span>
 				<span class="card-ad-download right floated">Download</span>
 			</div>

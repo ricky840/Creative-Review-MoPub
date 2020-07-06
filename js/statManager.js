@@ -52,6 +52,11 @@ var statManager = (function(global) {
 				$("#number_of_crt_html").html(htmlCreatives);
 				break;
 		}
+
+		if ((successNumberOfCreatives + failNumberOfCreatives) == totalNumberOfCreatives) {
+			// Complete
+			$(".ui.progress").progress("set success");
+		}
 	}
 
 	function reset() {

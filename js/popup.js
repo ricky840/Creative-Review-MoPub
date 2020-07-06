@@ -161,6 +161,7 @@ function initialize() {
 		// Init Progress Bar
 		$('.ui.progress').progress({
 			showActivity: false,
+			autoSuccess: false,
 			onChange: function(percent, value, total) {
 				if (value > 0 && value != total) {
 					$(this).progress("set label", "Working {value} / {total}");
