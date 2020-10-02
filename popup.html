@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/semantic.css">
     <link rel="stylesheet" type="text/css" href="css/calendar.min.css">
 		<link rel="stylesheet" type="text/css" href="css/popup.css">
+		<link rel="stylesheet" type="text/css" href="css/tagify.css">
 	</head>
 	<body id="main_body">
 
@@ -46,8 +47,9 @@
 					</div>
 
 					<div class="eight wide column">
-
 						<form class="ui small form ad-form">
+							<h4 class="ui dividing blue header">Select Source</h4>
+
 							<div class="required field">
 								<label>Fetch Creatives from</label>
 								<div class="ui selection fetch-source-dropdown dropdown">
@@ -108,23 +110,43 @@
 								<input type="text" name="adunit_id" placeholder="">
 							</div>
 
+							<h4 class="ui dividing blue header">Creative Filter</h4>
+
 							<div class="field">
 								<label>Creative Format (Leave blank for all formats)</label>
 									<select multiple="" class="ui dropdown creative-format-dropdown">
 										<option value="">All formats (default)</option>
 										<option value="banner">Banner (320x50 only)</option>
-										<option value="html">HTML</option>
+										<option value="html">HTML (Including MRAID, Other banner sizes)</option>
 										<option value="vast">VAST</option>
 										<option value="native">Native</option>
 									</select>
 							</div>
+
+							<div class="field">
+								<label>Adomain (Case insensitive)</label>
+								<input id="adomain" type="text" placeholder="Enter Adomains" name="adomain">	
+							</div>
+
+							<div class="field">
+								<label>Bidder (DSP)</label>
+								<div class="ui fluid multiple search selection dropdown bidder-list-filter">
+									<input type="hidden">
+									<i class="dropdown icon"></i>
+									<div class="default text">Select Bidder(DSP)</div>
+									<div class="menu"></div>
+								</div>
+							</div>
+
 							<div class="ui button ad-submit mopub-button-color mopub-button-radius disabled" id="ad-load-btn">Load</div>
+							<span class="api-status"></span>
 						</form>
 
 					</div> <!-- Column Ends -->
 			
 					<div class="eight wide column">
 						<div class="row">
+							<h4 class="ui dividing blue header">Settings</h4>
 							<form class="ui equal width small form ad-form-options">
 								<div class="fields">
 									<div class="field">
@@ -223,7 +245,8 @@
 							</form>
 						</div> <!-- End or row -->
 						<div class="row">
-							<div class="ui grey small segment">
+							<h4 class="ui dividing blue header">Status</h4>
+							<div class="ui small segment">
 								<div class="row">
 									<div class="ui small three statistics">
 										<div class="statistic blue">
@@ -495,6 +518,7 @@
 		<script type="text/javascript" src="lib/calendar.min.js"></script>
 		<script type="text/javascript" src="lib/http.js"></script>
 		<script type="text/javascript" src="lib/papaparse.min.js"></script>
+		<script type="text/javascript" src="lib/tagify.js"></script>
 		<script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 
     <script type="text/javascript" src="js/global.js"></script>

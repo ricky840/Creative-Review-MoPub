@@ -172,16 +172,19 @@ $("#ad-load-btn").click(async function(event) {
 	// Get date
 	let selectedDate = new Date($('.ui.calendar').calendar('get date'));
 	let dateStr = (isNaN(selectedDate.getTime())) ? "" : selectedDate.toISOString().split('T')[0];
-	// Get creative formats
-	let creativeFormats = $('.creative-format-dropdown').dropdown('get value');
-	creativeFormats = (creativeFormats.length == 0) ? ["all"] : creativeFormats;
 	// Get uploaded file creatives
 	let uploadedCreatives = csvManager.getUploadedCreatives();
+	// Get creative formats
+	let creativeFormats = $('.creative-format-dropdown').dropdown('get value');
+	creativeFormats = (creativeFormats.length == 0) ? [] : creativeFormats;
+	// Get bidder list (filter)
+	let bidderFilters = _.compact($('.dropdown.bidder-list-filter').dropdown('get value').split(","));
 
 	let userInput = $(".ad-form").serializeArray();
 	let options = $(".ad-form-options").serializeArray();
 	userInput.push({ name: "date_str", value: dateStr	});
 	userInput.push({ name: "formats", value: creativeFormats });
+	userInput.push({ name: "bidder_id_filter", value: bidderFilters });
 	userInput.push({ name: "uploaded_creatives", value: uploadedCreatives });
 	const formDataBeforeValidation = userInput.concat(options);
 	const userConfig = formValidator.validate(formDataBeforeValidation);
@@ -213,7 +216,7 @@ $("#ad-load-btn").click(async function(event) {
 		switch(userConfig.fetchSource) {
 			case "single_creative":
 				moPubAPI.getCreative(userConfig.bidderId, userConfig.creativeId, function(creatives) {
-					let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
+					let filteredCreatives = creativeFilter(creatives, userConfig);
 					if (filteredCreatives.length == 0) {
 						subBtnStatus("reset");
 						zeroCreative();
@@ -227,7 +230,7 @@ $("#ad-load-btn").click(async function(event) {
 
 			case "mpx_tab":
 				moPubAPI.getCreativesForMarketPlaceTab(userConfig.dateStr, function(creatives) {
-					let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
+					let filteredCreatives = creativeFilter(creatives, userConfig);
 					if (filteredCreatives.length == 0) {
 						subBtnStatus("reset");
 						zeroCreative();
@@ -241,7 +244,7 @@ $("#ad-load-btn").click(async function(event) {
 
 			case "mpx_line_item":
 				moPubAPI.getCreativesByLineItem(userConfig.dateStr, userConfig.marketPlaceLineItemKey, function(creatives) {
-					let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
+					let filteredCreatives = creativeFilter(creatives, userConfig);
 					if (filteredCreatives.length == 0) {
 						subBtnStatus("reset");
 						zeroCreative();
@@ -257,7 +260,7 @@ $("#ad-load-btn").click(async function(event) {
 				let bulkCreativeIds = csvManager.getUploadedCreatives();
 				moPubAPI.getCreativesByBulkCreativeIds(bulkCreativeIds, function(creatives) {
 					csvManager.reset();
-					let filteredCreatives = creativeFormatFilter(creatives, userConfig.creativeFormats);
+					let filteredCreatives = creativeFilter(creatives, userConfig);
 					if (filteredCreatives.length == 0) {
 						subBtnStatus("reset");
 						zeroCreative();

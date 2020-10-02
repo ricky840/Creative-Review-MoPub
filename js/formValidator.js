@@ -5,7 +5,7 @@ var formValidator = (function(global) {
 		let fetchSource, marketPlaceLineItemKey, adUnitKey, dateStr;
 		let creativeId, bidderId;
 		let imgQuality, renderDelay, skipOffset, serverMode, portNumber, domainShard;
-		let creativeFormats;
+		let creativeFormats, bidderIdFilters, adomainFilters;
 		let uploadedCreatives;
 
 		for (let i=0; i < formData.length; i++) {
@@ -18,6 +18,12 @@ var formValidator = (function(global) {
 					break;
 				case "bidder_id":
 					bidderId = formData[i].value.trim();
+					break;
+				case "bidder_id_filter":
+					bidderIdFilters = formData[i].value;
+					break;
+				case "adomain":
+					adomainFilters = formData[i].value;
 					break;
 				case "mpx_line_item_id":
 					marketPlaceLineItemKey = formData[i].value.trim();
@@ -122,6 +128,23 @@ var formValidator = (function(global) {
 			return false;
 		}
 
+		// Validate adomain input
+		if (_.isEmpty(adomainFilters)) {
+			adomainFilters = [];
+		} else {
+			try {
+				let adomains = JSON.parse(adomainFilters);
+				let values = [];
+				for (let i=0; i < adomains.length; i++) {
+					values.push(adomains[i].value.toLowerCase());
+				}
+				adomainFilters = values;
+			} catch (err) {
+				adomainFilters = [];
+				console.log(err.message);
+			}
+		}
+
 		// at this point, all validation was successful
 		return {
 			fetchSource: fetchSource,
@@ -137,7 +160,9 @@ var formValidator = (function(global) {
 			serverMode: serverMode,
 			portNumber: portNumber,
 			domainShard: domainShard,
-			uploadedCreatives: uploadedCreatives
+			uploadedCreatives: uploadedCreatives,
+			bidderIdFilters: bidderIdFilters,
+			adomainFilters: adomainFilters
 		};
 	}
  

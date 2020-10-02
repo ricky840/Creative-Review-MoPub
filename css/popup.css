@@ -171,7 +171,6 @@ bidderid {
 	margin-left: 10px;
 }
 bidderstatusactive {
-	margin-right: 5px !important;
   font-size: .6rem;
   display: inline-block !important;
   margin: 0.14285714em;
@@ -192,7 +191,9 @@ bidderstatusactive {
   overflow: hidden;
   width: .5em;
   height: .5em;
-  vertical-align: middle !important;
+  /* vertical-align: middle !important; */
+	margin-right: 5px !important;
+	margin-left: 5px !important;
 }
 bidderstatusinactive {
 	margin-right: 5px !important;

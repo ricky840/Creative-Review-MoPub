@@ -1,6 +1,11 @@
 var moPubAPI = (function(global) {
   "use strict";
 
+	function updateLoadingStatus(number) {
+		// Ah.. hate this
+		$(".api-status").html(`Creatives before filter applied - #${number + 1}`);
+	}
+
 	function isAdvancedBidder(bidderId) {
 		let bidder = bidderManager.getBidderByKey(bidderId);
 		if (_.isEmpty(bidder)) return false;
@@ -46,6 +51,7 @@ var moPubAPI = (function(global) {
 				let promises = [];
 				for (let i=0; i < creatives.length; i++) {
 					promises.push(creatives[i].loadMarkUp());
+					updateLoadingStatus(i);
 				}
 				// Don't promise all to be successful
 				Promise.allSettled(promises).then(response => {
@@ -131,7 +137,8 @@ var moPubAPI = (function(global) {
 			let creative = new Creative(bulkData[i].creativeId, bulkData[i].bidderId);
 			if (isAdvancedBidder(bulkData[i].bidderId)) continue;
 			creatives.push(creative);
-			promises.push(creative.loadMarkUp());	
+			promises.push(creative.loadMarkUp());
+			updateLoadingStatus(i);
 		}
 		// Don't promise all to be successful
 		Promise.allSettled(promises).then(response => {

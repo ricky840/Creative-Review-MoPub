@@ -63,8 +63,6 @@ var SkipOffset;
 // Vast.datswatusp.com domain
 const VAST_DATSWATSUP_COM = "http://vast.datswatsup.com/";
 
-
-
 // ***********************
 // Notification messages
  
@@ -98,4 +96,8 @@ const STILL_IN_LOADING = {
 	header: "Still in loading",
 	description: "Please wait until all creatives are loaded."
 };
-
+// Extension Updated
+const EXTENSION_UPDATED = {
+	header: "Extension Updated!! :-)",
+	description: `Updated to ${chrome.runtime.getManifest().version}. See <a href="https://github.com/ricky840/Creative-Review-MoPub/releases" target="_blank">change logs</a> for more details.`
+};

@@ -3,6 +3,14 @@ $(document).ready(function() {
 	// Update Version Info
 	document.title += ` v${chrome.runtime.getManifest().version}`;
 
+  // Notify Ext was Updated
+  chrome.storage.local.get("extUpdated", function(result) {
+    if(result["extUpdated"]) {
+			notifyManager.info(EXTENSION_UPDATED);
+    }
+    chrome.storage.local.set({"extUpdated": false});
+  });
+
 	// Loader
 	$(".ui.init-loader").addClass("active");
 
@@ -18,17 +26,50 @@ $(document).ready(function() {
 
 });
 
-function creativeFormatFilter(creatives, filterList) {
-	if (filterList[0] == "all") return creatives;
+function creativeFilter(creatives, userConfig) {
+	let filteredCreativeList = [];
+
+	// Format Filter
+	let formatFilters = userConfig.creativeFormats;
+	// Adomain Filter
+	let adomainFilters = userConfig.adomainFilters;
+	// DSP Filter
+	let bidderIdFilters = userConfig.bidderIdFilters;
 
 	// Add vast_tag if VAST is selected
-	if (filterList.includes("vast")) filterList.push("vast_tag");
+	if (formatFilters.includes("vast")) formatFilters.push("vast_tag");
 
-	let filteredCreativeList = [];
 	for (let i=0; i < creatives.length; i++) {
 		let type = creatives[i].getType();
-		if (filterList.includes(type)) filteredCreativeList.push(creatives[i]);
+		let adomain = creatives[i].getAdomain();
+		let bidderId = creatives[i].getBidderId();
+		let formatFlag = false;
+		let adomainFlag = false;
+		let bidderFlag = false;
+
+		if (_.isEmpty(formatFilters)) {
+			formatFlag = true;
+		} else if (!_.isEmpty(formatFilters) && formatFilters.includes(type)) {
+			formatFlag = true;
+		}
+
+		if (_.isEmpty(adomainFilters)) {
+			adomainFlag = true;
+		} else if (!_.isEmpty(adomainFilters) && adomainFilters.includes(adomain)) {
+			adomainFlag = true;
+		}
+
+		if (_.isEmpty(bidderIdFilters)) {
+			bidderFlag = true;
+		} else if (!_.isEmpty(bidderIdFilters) && bidderIdFilters.includes(bidderId)) {
+			bidderFlag = true;
+		}
+
+		if (formatFlag && adomainFlag && bidderFlag) {
+			filteredCreativeList.push(creatives[i]);
+		}
 	}
+
 	return filteredCreativeList;
 }
 
@@ -84,6 +125,7 @@ function zeroCreative() {
 
 function subBtnStatus(status) {
 	let button = $("#ad-load-btn");
+	let sideMsg = $(".api-status");
 	switch(status) {
 		case "loading":
 			if (button.hasClass("disabled")) return;
@@ -91,6 +133,7 @@ function subBtnStatus(status) {
 			break;
 		case "reset":
 			button.html("Load").removeClass("disabled");
+			sideMsg.html("");
 			break;
 		case "in-progress":
 			if (button.hasClass("disabled")) return;
@@ -98,6 +141,7 @@ function subBtnStatus(status) {
 			break;
 		default:
 			button.html("Load").removeClass("disabled");
+			sideMsg.html("");
 			break;
 	}
 }
@@ -145,6 +189,14 @@ function initialize() {
 			fullTextSearch: "exact"
 		});
 
+		// Init bidder list dropdown in Filter
+		$(".ui.dropdown.bidder-list-filter").dropdown({
+			placeholder: "Search Bidder(DSP) name or ID..",
+			values: bidderManager.getBidderListForDropDown(),
+			sortSelect: true,
+			fullTextSearch: "exact"
+		});
+
 		// Init Tab menu
 		$('.tab-menu .item').tab();
 
@@ -157,6 +209,9 @@ function initialize() {
 		// Init modals
 		$('.ui.modal.non-video').modal();
 		$('.ui.modal.video').modal();
+
+		// Init Tagify (adomain) just for the UI
+		let tagify = new Tagify($("#adomain")[0]);
 
 		// Init Progress Bar
 		$('.ui.progress').progress({
