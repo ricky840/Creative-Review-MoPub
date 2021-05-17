@@ -1,6 +1,6 @@
 {
   "name": "Creative Review for MoPub",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Preview creatives from MoPub MPX. This helps you to find the problematic creative easily",
   "manifest_version": 2,
   "background": {
